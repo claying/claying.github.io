@@ -2,13 +2,40 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on Dexiong Chen</title>
-    <link>http://example.org/</link>
+    <link>https://claying.github.io/</link>
     <description>Recent content in Home on Dexiong Chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://claying.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Publications</title>
+      <link>https://claying.github.io/publications/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://claying.github.io/publications/</guid>
+      <description> A Kernel Perspective for Regularizing Deep Neural Networks Alberto Bietti, Grégoire Mialon, Dexiong Chen, Julien Mairal Preprint, 2019  Biological Sequence Modeling with Convolutional Kernel Networks Dexiong Chen, Laurent Jacob, Julien Mairal To appear in Research in Computational Molecular Biology (RECOMB), 2019 and Bioinformatics    </description>
+    </item>
+    
+    <item>
+      <title>Software</title>
+      <link>https://claying.github.io/software/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://claying.github.io/software/</guid>
+      <description> CKN-seq CKN-seq is a software package to model biological sequences (DNA, protein etc.) with convolutional kernel networks.  </description>
+    </item>
+    
+    <item>
+      <title>Teaching</title>
+      <link>https://claying.github.io/teaching/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://claying.github.io/teaching/</guid>
+      <description> Teaching assistant for graduate courses  2018-2019 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2018-2019 Advanced learning models, MSIAM master - Grenoble University. 2017-2018 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2017-2018 Advanced learning models, MSIAM master - Grenoble University.  </description>
+    </item>
     
   </channel>
 </rss>

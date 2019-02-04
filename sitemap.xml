@@ -3,17 +3,29 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://claying.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://example.org/</loc>
+    <loc>https://claying.github.io/</loc>
   </url>
   
   <url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://claying.github.io/publications/</loc>
+  </url>
+  
+  <url>
+    <loc>https://claying.github.io/software/</loc>
+  </url>
+  
+  <url>
+    <loc>https://claying.github.io/tags/</loc>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://claying.github.io/teaching/</loc>
   </url>
   
 </urlset>
