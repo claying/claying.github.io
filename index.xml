@@ -25,7 +25,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://claying.github.io/software/</guid>
-      <description> CKN-Pytorch-image CKN-Pytorch-image is a software package to perform image classification with convolutional kernel networks. CKN-seq CKN-seq is a software package to model biological sequences (DNA, protein etc.) with convolutional kernel networks.  </description>
+      <description> RKN Recurrent kernel networks (RKN) is a software package to model biological sequences (DNA, protein etc.) with potentially gapped motifs. CKN-Pytorch-image CKN-Pytorch-image is a software package to perform image classification with convolutional kernel networks. CKN-seq CKN-seq is a software package to model biological sequences (DNA, protein etc.) with convolutional kernel networks.  </description>
     </item>
     
     <item>
