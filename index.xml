@@ -16,7 +16,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://claying.github.io/publications/</guid>
-      <description> An Optimal Transport Kernel for Feature Aggregation and its Relationship to Attention Grégoire Mialon, Dexiong Chen, Alexandre d&amp;rsquo;Aspremont, Julien Mairal ICLR, 2021   Convolutional Kernel Networks for Graph-Structured Data Dexiong Chen, Laurent Jacob, Julien Mairal In ICML, 2020   Recurrent Kernel Networks Dexiong Chen, Laurent Jacob, Julien Mairal In NeurIPS, 2019 and accepted as an oral presentation in MLCB, 2019    A Kernel Perspective for Regularizing Deep Neural Networks Alberto Bietti, Grégoire Mialon, Dexiong Chen, Julien Mairal In ICML, 2019    Biological Sequence Modeling with Convolutional Kernel Networks Dexiong Chen, Laurent Jacob, Julien Mairal In Research in Computational Molecular Biology (RECOMB), 2019 and Bioinformatics, 2019     </description>
+      <description> GraphiT: Encoding Graph Structure in Transformers Grégoire Mialon, Dexiong Chen, Margot Selosse, Julien Mairal Preprint, 2021   Structured Data Modeling with Deep Kernel Machines and Applications in Computational Biology Dexiong Chen PhD thesis, Université Grenoble Alpes, 2020  An Optimal Transport Kernel for Feature Aggregation and its Relationship to Attention Grégoire Mialon, Dexiong Chen, Alexandre d&amp;rsquo;Aspremont, Julien Mairal ICLR, 2021   Convolutional Kernel Networks for Graph-Structured Data Dexiong Chen, Laurent Jacob, Julien Mairal In ICML, 2020   Recurrent Kernel Networks Dexiong Chen, Laurent Jacob, Julien Mairal In NeurIPS, 2019 and accepted as an oral presentation in MLCB, 2019    A Kernel Perspective for Regularizing Deep Neural Networks Alberto Bietti, Grégoire Mialon, Dexiong Chen, Julien Mairal In ICML, 2019    Biological Sequence Modeling with Convolutional Kernel Networks Dexiong Chen, Laurent Jacob, Julien Mairal In Research in Computational Molecular Biology (RECOMB), 2019 and Bioinformatics, 2019     </description>
     </item>
     
     <item>
@@ -25,7 +25,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://claying.github.io/software/</guid>
-      <description>OTK Optimal transport kernel (OTK) is a kernel for feature aggregation. It allows to perform adaptive pooling (attention + pooling). Principally, it can be useful to model any data represented as sets of features (sequences, images, graphs etc.). In this implementation, it can be used as a module in neural networks, or alone as a kernel method. GCKN Graph convolutional kernel networks (GCKN) is a software package to model graph-structured data.</description>
+      <description>GraphiT GraphiT is an instance of transformers designed for graph-structured data. It takes as input a graph seen as a set of its node features, and incorporate the graph structure via i) relative positional encoding using kernels on graphs and ii) encoding local substructures around each node, such as short paths, before adding it to the node features. OTK Optimal transport kernel (OTK) is a kernel for feature aggregation. It allows to perform adaptive pooling (attention + pooling).</description>
     </item>
     
     <item>
