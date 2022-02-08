@@ -99,7 +99,7 @@ li {
 /* Links */
 
 a {
-  color: black;
+  color: inherit;
   text-decoration: none;
   padding-bottom: 2px;
   border-bottom: 1px solid;
@@ -186,6 +186,13 @@ body {
 
 .masthead .tagline {
   font-style: italic;
+  text-align: right;
+}
+
+.masthead .contact {
+  margin-top: -1.3em;
+  font-size: .9em;
+  color: #666;
   text-align: right;
 }
 
@@ -324,6 +331,10 @@ thead, tfoot, tr:nth-child(even) {
   }
 
   .masthead .tagline {
+    text-align: center;
+  }
+
+  .masthead .contact {
     text-align: center;
   }
 
