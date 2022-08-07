@@ -21,7 +21,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://claying.github.io/software/</guid>
-      <description>GraphiT GraphiT is an instance of transformers designed for graph-structured data. It takes as input a graph seen as a set of its node features, and incorporate the graph structure via i) relative positional encoding using kernels on graphs and ii) encoding local substructures around each node, such as short paths, before adding it to the node features. OTK Optimal transport kernel (OTK) is a kernel for feature aggregation. It allows to perform adaptive pooling (attention + pooling).</description>
+      <description>SAT SAT provides a class of simple and flexible graph transformers built upon a new self-attention mechanism, which incorporates structural information into the original self-attention by extracting a subgraph representation rooted at each node before computing the attention. SAT can leverage any existing GNN to extract the subgraph representation and systematically improve the peroformance relative to the base GNN. GraphiT GraphiT is an instance of transformers designed for graph-structured data.</description>
     </item>
     
     <item>
@@ -39,7 +39,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://claying.github.io/teaching/</guid>
-      <description>Teaching assistant for graduate courses  2018-2019 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2018-2019 Advanced learning models, MSIAM master - Grenoble University. 2017-2018 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2017-2018 Advanced learning models, MSIAM master - Grenoble University.  </description>
+      <description>Teaching assistant for graduate courses  2022 Spring Data Mining II, CBB master - ETH Zürich. 2018-2019 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2018-2019 Advanced learning models, MSIAM master - Grenoble University. 2017-2018 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2017-2018 Advanced learning models, MSIAM master - Grenoble University.  </description>
     </item>
     
   </channel>
