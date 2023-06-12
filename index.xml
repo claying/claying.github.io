@@ -12,7 +12,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://claying.github.io/publications/</guid>
-      <description>Fisher Information Embedding for Node and Graph Learning Dexiong Chen, Paolo Pellizzoni, Karsten Borgwardt ICML, 2023   Unsupervised Manifold Alignment with Joint Multidimensional Scaling Dexiong Chen, Bowen Fan, Carlos Oliver, Karsten Borgwardt ICLR, 2023    Approximate Network Motif Mining via Graph Learning Carlos Oliver, Dexiong Chen, Vincent Mallet, Pericles Philippopoulos, Karsten Borgwardt Preprint, 2022   Predicting in vitro single-neuron firing rates upon pharmacological perturbation using graph neural networks Taehoon Kim, Dexiong Chen, Philipp Hornauer, Vishalini Emmenegger, Julian Bartram, Silvia Ronchi, Andreas R.</description>
+      <description>Fisher Information Embedding for Node and Graph Learning Dexiong Chen, Paolo Pellizzoni, Karsten Borgwardt ICML, 2023 Unsupervised Manifold Alignment with Joint Multidimensional Scaling Dexiong Chen, Bowen Fan, Carlos Oliver, Karsten Borgwardt ICLR, 2023 Approximate Network Motif Mining via Graph Learning Carlos Oliver, Dexiong Chen, Vincent Mallet, Pericles Philippopoulos, Karsten Borgwardt Preprint, 2022 Predicting in vitro single-neuron firing rates upon pharmacological perturbation using graph neural networks Taehoon Kim, Dexiong Chen, Philipp Hornauer, Vishalini Emmenegger, Julian Bartram, Silvia Ronchi, Andreas R.</description>
     </item>
     
     <item>
@@ -21,7 +21,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://claying.github.io/software/</guid>
-      <description>SAT SAT provides a class of simple and flexible graph transformers built upon a new self-attention mechanism, which incorporates structural information into the original self-attention by extracting a subgraph representation rooted at each node before computing the attention. SAT can leverage any existing GNN to extract the subgraph representation and systematically improve the peroformance relative to the base GNN. GraphiT GraphiT is an instance of transformers designed for graph-structured data.</description>
+      <description>ProteinShake ProteinShake provides one-liner imports of large scale, preprocessed protein structure tasks and datasets for various model types and frameworks. SAT SAT provides a class of simple and flexible graph transformers built upon a new self-attention mechanism, which incorporates structural information into the original self-attention by extracting a subgraph representation rooted at each node before computing the attention. SAT can leverage any existing GNN to extract the subgraph representation and systematically improve the peroformance relative to the base GNN.</description>
     </item>
     
     <item>
@@ -30,7 +30,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://claying.github.io/talks/</guid>
-      <description> Structured Data Modeling with Deep Kernel Machines and Applications in Computational Biology. PhD defense, Grenoble, 2020. Convolutional Kernel Networks for Graph-Structured Data. ICML, Virtual, 2020. Protein Fold Recognition with Recurrent Kernel Networks. MLCB, Vancouver, 2019.  </description>
+      <description> Structured Data Modeling with Deep Kernel Machines and Applications in Computational Biology. PhD defense, Grenoble, 2020. Convolutional Kernel Networks for Graph-Structured Data. ICML, Virtual, 2020. Protein Fold Recognition with Recurrent Kernel Networks. MLCB, Vancouver, 2019. </description>
     </item>
     
     <item>
@@ -39,7 +39,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://claying.github.io/teaching/</guid>
-      <description>Teaching assistant for graduate courses  2022 Spring Data Mining II, CBB master - ETH Zürich. 2018-2019 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2018-2019 Advanced learning models, MSIAM master - Grenoble University. 2017-2018 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2017-2018 Advanced learning models, MSIAM master - Grenoble University.  </description>
+      <description>Teaching assistant for graduate courses 2022 Spring Data Mining II, CBB master - ETH Zürich. 2018-2019 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2018-2019 Advanced learning models, MSIAM master - Grenoble University. 2017-2018 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2017-2018 Advanced learning models, MSIAM master - Grenoble University. </description>
     </item>
     
   </channel>
