@@ -4,7 +4,8 @@
     <title>Tags on Dexiong Chen</title>
     <link>https://claying.github.io/tags/</link>
     <description>Recent content in Tags on Dexiong Chen</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://claying.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="https://claying.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

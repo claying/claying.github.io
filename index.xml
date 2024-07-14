@@ -4,43 +4,36 @@
     <title>Home on Dexiong Chen</title>
     <link>https://claying.github.io/</link>
     <description>Recent content in Home on Dexiong Chen</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://claying.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="https://claying.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Publications</title>
       <link>https://claying.github.io/publications/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://claying.github.io/publications/</guid>
-      <description>Learning Long Range Dependencies on Graphs via Random Walks Dexiong Chen, Till Hendrik Schulz, Karsten Borgwardt Preprint, 2024 Endowing Protein Language Models with Structural Knowledge Dexiong Chen, Philip Hartout, Paolo Pellizzoni, Carlos Oliver, Karsten Borgwardt Preprint, 2024 ProteinShake: Building Datasets and Benchmarks for Deep Learning on Protein Structures Tim Kucera, Carlos Oliver, Dexiong Chen, Karsten Borgwardt NeurIPS (Datasets and Benchmarks), 2023 Fisher Information Embedding for Node and Graph Learning Dexiong Chen, Paolo Pellizzoni, Karsten Borgwardt ICML, 2023 Unsupervised Manifold Alignment with Joint Multidimensional Scaling Dexiong Chen, Bowen Fan, Carlos Oliver, Karsten Borgwardt ICLR, 2023 Approximate Network Motif Mining via Graph Learning Carlos Oliver, Dexiong Chen, Vincent Mallet, Pericles Philippopoulos, Karsten Borgwardt Preprint, 2022 Predicting in vitro single-neuron firing rates upon pharmacological perturbation using graph neural networks Taehoon Kim, Dexiong Chen, Philipp Hornauer, Vishalini Emmenegger, Julian Bartram, Silvia Ronchi, Andreas R.</description>
+      <description>Learning Long Range Dependencies on Graphs via Random Walks Dexiong Chen, Till Hendrik Schulz, Karsten Borgwardt Preprint, 2024 Endowing Protein Language Models with Structural Knowledge Dexiong Chen, Philip Hartout, Paolo Pellizzoni, Carlos Oliver, Karsten Borgwardt Preprint, 2024 Biomarker Identification by Interpretable Maximum Mean Discrepancy Michael F Adamer, Sarah C Brüningk, Dexiong Chen, Karsten Borgwardt ISMB, 2024 SURE: SUrvey REcipes for building reliable and robust deep networks Yuting Li, Yingyi Chen, Xuanlong Yu, Dexiong Chen, Xi Shen CVPR, 2024 ProteinShake: Building Datasets and Benchmarks for Deep Learning on Protein Structures Tim Kucera, Carlos Oliver, Dexiong Chen, Karsten Borgwardt NeurIPS (Datasets and Benchmarks), 2023 Fisher Information Embedding for Node and Graph Learning Dexiong Chen, Paolo Pellizzoni, Karsten Borgwardt ICML, 2023 Unsupervised Manifold Alignment with Joint Multidimensional Scaling Dexiong Chen, Bowen Fan, Carlos Oliver, Karsten Borgwardt ICLR, 2023 Approximate Network Motif Mining via Graph Learning Carlos Oliver, Dexiong Chen, Vincent Mallet, Pericles Philippopoulos, Karsten Borgwardt Preprint, 2022 Predicting in vitro single-neuron firing rates upon pharmacological perturbation using graph neural networks Taehoon Kim, Dexiong Chen, Philipp Hornauer, Vishalini Emmenegger, Julian Bartram, Silvia Ronchi, Andreas R.</description>
     </item>
-    
     <item>
       <title>Software</title>
       <link>https://claying.github.io/software/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://claying.github.io/software/</guid>
       <description>ProteinShake ProteinShake provides one-liner imports of large scale, preprocessed protein structure tasks and datasets for various model types and frameworks. SAT SAT provides a class of simple and flexible graph transformers built upon a new self-attention mechanism, which incorporates structural information into the original self-attention by extracting a subgraph representation rooted at each node before computing the attention. SAT can leverage any existing GNN to extract the subgraph representation and systematically improve the peroformance relative to the base GNN.</description>
     </item>
-    
     <item>
       <title>Talks</title>
       <link>https://claying.github.io/talks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://claying.github.io/talks/</guid>
       <description> Structured Data Modeling with Deep Kernel Machines and Applications in Computational Biology. PhD defense, Grenoble, 2020. Convolutional Kernel Networks for Graph-Structured Data. ICML, Virtual, 2020. Protein Fold Recognition with Recurrent Kernel Networks. MLCB, Vancouver, 2019. </description>
     </item>
-    
     <item>
       <title>Teaching</title>
       <link>https://claying.github.io/teaching/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://claying.github.io/teaching/</guid>
       <description>Teaching assistant for graduate courses 2022 Spring Data Mining II, CBB master - ETH Zürich. 2018-2019 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2018-2019 Advanced learning models, MSIAM master - Grenoble University. 2017-2018 Kernel methods for machine learning, MVA master - ENS Paris Saclay. 2017-2018 Advanced learning models, MSIAM master - Grenoble University. </description>
     </item>
-    
   </channel>
 </rss>
