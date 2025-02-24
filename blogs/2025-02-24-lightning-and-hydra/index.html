@@ -261,11 +261,11 @@ We&rsquo;ll use <a href="https://www.uniprot.org/help/downloads">SwissProt</a>, 
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">train</span>:<span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#000080">lr_scheduler</span>:<span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#000080">_target_</span>:<span style="color:#bbb"> </span>transformers.get_cosine_schedule_with_warmup<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#000080">num_warmup_steps</span>:<span style="color:#bbb"> </span>${eval:0.01 * ${trainer.max_steps}}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#000080">num_warmup_steps</span>:<span style="color:#bbb"> </span>${eval:${trainer.max_steps} // 100}<span style="color:#bbb">
 </span></span></span></code></pre></div><p>But the original resolver does not permit math calculation. Thus, we use the <code>eval</code> tag to tell our resolver that there&rsquo;s a math calculation in the given text. Then, in our Python code, we can define the following resolver, which will apply the <code>eval</code> function to <a href="https://docs.python.org/3/library/functions.html#eval">evaluate any string as Python code</a>:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#998;font-style:italic">### ./train.py</span>
 </span></span><span style="display:flex;"><span>OmegaConf<span style="color:#000;font-weight:bold">.</span>register_new_resolver(<span style="color:#d14">&#39;eval&#39;</span>, <span style="color:#0086b3">eval</span>)
-</span></span></code></pre></div><p>Now if you print the <code>cfg</code> in <code>train.py</code>, you will obtain:</p>
+</span></span></code></pre></div><p>Now if you print the <code>cfg</code> in <code>train.py</code> via <em>e.g.</em> <code>print(OmegaConf.to_container(cfg, resolve=True))</code>, you will obtain:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>trainer:
 </span></span><span style="display:flex;"><span>  max_steps: <span style="color:#099">100000</span>
 </span></span><span style="display:flex;"><span>train:
