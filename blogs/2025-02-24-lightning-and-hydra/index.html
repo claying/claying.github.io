@@ -141,24 +141,6 @@ We&rsquo;ll use <a href="https://www.uniprot.org/help/downloads">SwissProt</a>, 
 </span></span><span style="display:flex;"><span>alphabet <span style="color:#000;font-weight:bold">=</span> Alphabet<span style="color:#000;font-weight:bold">.</span>from_architecture(<span style="color:#d14">&#34;ESM-1b&#34;</span>) <span style="color:#998;font-style:italic"># ESM-2 and ESM-1b used the same alphabet</span>
 </span></span><span style="display:flex;"><span>collate_fn <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">lambda</span> batch: alphabet<span style="color:#000;font-weight:bold">.</span>get_batch_converter(truncation_length)(batch)[<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>]
 </span></span></code></pre></div><p>The full code for our <code>ProteinDataset</code> inherited from <code>LightningDataModule</code> can be found <a href="https://github.com/claying/ProLlama/blob/main/prollama/data/pl_dataset.py">here</a>.</p>
-<!-- #### A general FASTA dataset class
-
-The data preparation should be the most time-consuming part, since the modeling and training code could largely benefit from the Lightning workflow. 
-
-In this tutorial, as a proof-of-concept, we'll use a relatively small dataset, namely [SwissProt](https://www.uniprot.org/help/downloads), composed of around 550K sequences. If you download the sequences from the previous link, you will obtain a [FASTA](https://en.wikipedia.org/wiki/FASTA_format) file (up to decompression). [ESM][5] offers a simple implementation for processing data from such a format through `esm.data.FastaBatchedDataset`, and we will rely our code on their implementation. 
-
-My code (see [SwissProt](https://github.com/claying/ProLlama/blob/main/prollama/data/fasta_dataset.py)) automatised downloading and splitting the dataset into train and val datasets (I split 10% of the data as the validation set). You can easily adapt my code to handle any sequence data in FASTA. -->
-<!-- #### LightningDataModule
-
-[LightningDataModule](https://lightning.ai/docs/pytorch/stable/data/datamodule.html) provides an easy way to handle data loaders for Lightning's trainer. You need to implement train/val/test data loaders within this module, as well as `prepare_data` and `setup` which deals with downloading and assigning train/val datasets for use in dataloaders. As we will reuse the tokenizer from ESM, our data loader is pretty easy to implement relying on essentially the following collate function:
-
-```python
-from esm import Alphabet
-alphabet = Alphabet.from_architecture("ESM-1b") # ESM-2 and ESM-1b used the same alphabet
-collate_fn = lambda batch: alphabet.get_batch_converter(truncation_length)(batch)[-1]
-```
-
-The full code for our `ProteinDataset` inherited from `LightningDataModule` can be found [here](https://github.com/claying/ProLlama/blob/main/prollama/data/pl_dataset.py). -->
 <h3 id="defining-the-llama-model">Defining the Llama model</h3>
 <p>We&rsquo;ll use Hugging Face&rsquo;s <a href="https://huggingface.co/docs/transformers/model_doc/llama">Llama</a> implementation, configured as a small 6-layer model:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model_config <span style="color:#000;font-weight:bold">=</span> {
@@ -214,7 +196,7 @@ The full code for our `ProteinDataset` inherited from `LightningDataModule` can 
 </span></span></code></pre></div><p>For validation and test metrics, you can also implement <code>on_validation_epoch_end()</code> if you need all the predictions (see <a href="https://lightning.ai/docs/pytorch/stable/common/lightning_module.html#validation-epoch-level-metrics">here</a>).</p>
 <p>As the Llama model from Hugging Face has already implemented the <code>forward</code> method and even the loss computation, we can simply call the model to compute the loss:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">training_step</span>(<span style="color:#999">self</span>, batch, batch_idx):
-</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic"># self.model was defined as an transformers.LlamaForCausalLM object</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic"># self.model was defined as a transformers.LlamaForCausalLM object</span>
 </span></span><span style="display:flex;"><span>    loss <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>model(input_ids<span style="color:#000;font-weight:bold">=</span>batch, labels<span style="color:#000;font-weight:bold">=</span>batch)<span style="color:#000;font-weight:bold">.</span>loss
 </span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic"># sync_dist is useful for multi-GPU training like DDP</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>log(<span style="color:#d14">f</span><span style="color:#d14">&#34;train/loss&#34;</span>, loss, on_step<span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">True</span>, on_epoch<span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">False</span>, sync_dist<span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">True</span>)
@@ -310,7 +292,7 @@ The full code for our `ProteinDataset` inherited from `LightningDataModule` can 
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python train.py
 </span></span></code></pre></div><p>As a proof-of-concept, we will only train our model for 50000 iterations and we will use <a href="https://wandb.ai/">wandb</a> to log our metrics during traing. Hydra provides a simple way to override the configurations:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python train.py trainer.max_steps<span style="color:#000;font-weight:bold">=</span><span style="color:#099">50000</span> <span style="color:#008080">wandb</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">true</span>
-</span></span></code></pre></div><p>As a side note, Lightning also offers simple APIs to manage training configurations, such as multi-GPU training, gradient accumulating, etc. We have properly set up these hyperparameters in <code>./config/train.yaml</code> to ensure a stable and fast training on an NVIDIA H100 GPU.</p>
+</span></span></code></pre></div><p>As a side note, Lightning also offers simple APIs to manage training configurations, such as multi-GPU training, gradient accumulating, etc. We have properly set up these hyperparameters in <code>./config/train.yaml</code> to ensure a stable and fast training on a NVIDIA H100 GPU.</p>
 <p>Here are my training and validation losses:</p>
 <img src="../images/prollama_train.png" alt="ProLlama train loss" width="380"/>
 <img src="../images/prollama_val.png" alt="ProLlama val loss" width="380"/>
