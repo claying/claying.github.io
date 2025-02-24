@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bioinformatics on Dexiong Chen</title>
+    <link>https://claying.github.io/categories/bioinformatics/</link>
+    <description>Recent content in Bioinformatics on Dexiong Chen</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 24 Feb 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://claying.github.io/categories/bioinformatics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use Lightning and Hydra to train your neural networks</title>
+      <link>https://claying.github.io/blogs/2025-02-24-lightning-and-hydra/</link>
+      <pubDate>Mon, 24 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>https://claying.github.io/blogs/2025-02-24-lightning-and-hydra/</guid>
+      <description>TL;DR: A tutorial for training a Llama model on protein sequences from scratch with less than 500 lines of code.&#xA;Deep learning research is moving at an incredible pace, and so are the tools that support rapid experimentation. In this post, we&amp;rsquo;ll explore how to combine PyTorch Lightning and Hydra to streamline the training of a deep neural network—in our case, a Llama model trained on protein sequences, which will allow for protein sequence generation via next amino acid prediction.</description>
+    </item>
+  </channel>
+</rss>
