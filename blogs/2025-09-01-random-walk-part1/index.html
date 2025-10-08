@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>The power of random walks - Part I - Dexiong Chen</title>
+    <meta property="og:title" content="The power of random walks - Part I - Dexiong Chen">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="Welcome to the first post in our series on the power of random walks! We&rsquo;re diving into how a simple concept in graph theory can solve several challenges in understanding complex networks. &amp;hellip;">
+      <meta property="og:description" content="Welcome to the first post in our series on the power of random walks! We&rsquo;re diving into how a simple concept in graph theory can solve several challenges in understanding complex networks. &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+    <script src="https://kit.fontawesome.com/64564216b5.js" crossorigin="anonymous"></script>
+    
+      <link rel="stylesheet" href="/css/main.min.d93b80e9a82afefd7f1ef17cd48497caf7ae79fc478d98f2ebd8b12400733721.css" integrity="sha256-2TuA6agq/v1/HvF81ISXyveuefxHjZjy69ixJABzNyE=" crossorigin="anonymous">
+  </head>
+
+  
+  <body class="blogs">
+    <header class="masthead">
+      <h1><a href="/">Dexiong Chen</a></h1>
+
+
+
+<p class="contact"><i class="fa-regular fa-envelope"></i> dchen@biochem.mpg.de</p>
+
+<p class="contact"><a href="https://scholar.google.com/citations?user=goM0yAIAAAAJ"><i class='ai ai-google-scholar-square ai-2x'></i></a> <a href="https://github.com/claying"><i class='fa-brands fa-github-square fa-2x'></i></a> <a href="https://www.linkedin.com/in/dexiong-chen-12206aa5/"><i class='fa-brands fa-linkedin fa-2x'></i></a> <a href="https://gitlab.inria.fr/dchen"><i class='fa-brands fa-gitlab-square fa-2x'></i></a></p>
+
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/publications/">Publications</a></li>
+  
+  <li><a href="/software/">Software</a></li>
+  
+  <li><a href="/team/">Team</a></li>
+  
+  <li><a href="/teaching/">Teaching</a></li>
+  
+  <li><a href="/talks/">Talks</a></li>
+  
+  <li><a href="/blogs/">Blogs</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      <h1>The power of random walks - Part I</h1>
+
+<h3>Dexiong Chen
+  /  2025-08-27</h3>
+<hr>
+
+
+<span class="badges">
+    
+    <a href=https://github.com/BorgwardtLab/NeuralWalker><img alt=Github src="https://img.shields.io/badge/Github-grey.svg"></a>
+    
+    <a href=https://openreview.net/forum?id&#61;kJ5H7oGT2M><img alt=arXiv src="https://img.shields.io/badge/arXiv-blue.svg"></a>
+    
+</span>
+
+<p><span class="tldr"><strong>TL;DR:</strong> <em>From language models to graph models - how to leverage language models and random walks for graph learning tasks.</em></span></p>
+
+      </header>
+
+
+ <h2>Table of contents</h2> <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-random-walks">Why Random Walks?</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav> 
+<p>Welcome to the first post in our series on the power of random walks!
+We&rsquo;re diving into how a simple concept in graph theory can solve several challenges in understanding complex networks. We&rsquo;ll be exploring the core ideas from our recent paper, &ldquo;Learning Long Range Dependencies on Graphs via Random Walks&rdquo;, which introduces an exciting new architecture called <strong>NeuralWalker</strong>.</p>
+<h2 id="why-random-walks">Why Random Walks?</h2>
+<p>Graphs are everywhere: molecules, social networks, road maps, protein interactions. To learn from them, we need ways to explore structure and dependencies between nodes.</p>
+<ul>
+<li>
+<p>Message-passing GNNs excel at capturing local neighborhoods.</p>
+</li>
+<li>
+<p>Graph Transformers capture global interactions, but often flatten the structure.</p>
+</li>
+<li>
+<p>Random walks offer a third perspective: a natural way to traverse and sample graphs, bridging local and global structure.</p>
+</li>
+</ul>
+<p>TODO</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>TODO</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blogs/2025-02-24-lightning-and-hydra/">Use Lightning and Hydra to train your neural networks</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+<div class="comments">
+<script src="https://giscus.app/client.js"
+        data-repo="claying/claying.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjkwNzI2ODY="
+        data-category="Comments"
+        data-category-id="DIC_kwDOChPYLs4CnP2O"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+  
+
+  
+  <hr>
+  <div class="copyright">© Dexiong Chen 2019-2025</div>
+  
+  </footer>
+  </article>
+  
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-096L0VPDR9"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-096L0VPDR9');
+        }
+      </script>
+  </body>
+</html>
+

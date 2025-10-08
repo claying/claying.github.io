@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Language Models on Dexiong Chen</title>
+    <link>https://claying.github.io/categories/language-models/</link>
+    <description>Recent content in Language Models on Dexiong Chen</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 27 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://claying.github.io/categories/language-models/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The power of random walks - Part I</title>
+      <link>https://claying.github.io/blogs/2025-09-01-random-walk-part1/</link>
+      <pubDate>Wed, 27 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://claying.github.io/blogs/2025-09-01-random-walk-part1/</guid>
+      <description>&lt;p&gt;Welcome to the first post in our series on the power of random walks!&#xA;We&amp;rsquo;re diving into how a simple concept in graph theory can solve several challenges in understanding complex networks. We&amp;rsquo;ll be exploring the core ideas from our recent paper, &amp;ldquo;Learning Long Range Dependencies on Graphs via Random Walks&amp;rdquo;, which introduces an exciting new architecture called &lt;strong&gt;NeuralWalker&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-random-walks&#34;&gt;Why Random Walks?&lt;/h2&gt;&#xA;&lt;p&gt;Graphs are everywhere: molecules, social networks, road maps, protein interactions. To learn from them, we need ways to explore structure and dependencies between nodes.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
