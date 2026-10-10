@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Coding on Dexiong Chen</title>
-    <link>https://claying.github.io/categories/coding/</link>
-    <description>Recent content in Coding on Dexiong Chen</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 24 Feb 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://claying.github.io/categories/coding/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Use Lightning and Hydra to train your neural networks</title>
-      <link>https://claying.github.io/blogs/2025-02-24-lightning-and-hydra/</link>
-      <pubDate>Mon, 24 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>https://claying.github.io/blogs/2025-02-24-lightning-and-hydra/</guid>
-      <description>&lt;!-- **TL;DR:** _A [tutorial][4] for training a Llama model on protein sequences from scratch with less than 500 lines of code._ --&gt;&#xA;&lt;p&gt;Deep learning research is moving at an incredible pace, and so are the tools that support rapid experimentation.&#xA;In this post, we&amp;rsquo;ll explore how to combine &lt;a href=&#34;https://lightning.ai/&#34;&gt;PyTorch Lightning&lt;/a&gt; and &lt;a href=&#34;https://hydra.cc/&#34;&gt;Hydra&lt;/a&gt; to streamline the training of a deep neural network—in our case,&#xA;a Llama model trained on protein sequences, which will allow for protein sequence generation via next amino acid prediction.&#xA;We’ll also integrate components from &lt;a href=&#34;https://huggingface.co/docs/transformers/index&#34;&gt;Hugging Face&lt;/a&gt; to leverage state-of-the-art language model architectures.&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>Coding on Dexiong Chen</title>
+		<link>https://claying.github.io/categories/coding/</link>
+		<description>Recent content in Coding on Dexiong Chen</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 24 Feb 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://claying.github.io/categories/coding/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Use Lightning and Hydra to train your neural networks</title>
+				<link>https://claying.github.io/blogs/2025-02-24-lightning-and-hydra/</link>
+				<pubDate>Mon, 24 Feb 2025 00:00:00 +0000</pubDate>
+				<guid>https://claying.github.io/blogs/2025-02-24-lightning-and-hydra/</guid>
+				<description>&lt;!-- **TL;DR:** _A [tutorial][4] for training a Llama model on protein sequences from scratch with less than 500 lines of code._ --&gt;&#xA;&lt;p&gt;Deep learning research is moving at an incredible pace, and so are the tools that support rapid experimentation.&#xA;In this post, we&amp;rsquo;ll explore how to combine &lt;a href=&#34;https://lightning.ai/&#34;&gt;PyTorch Lightning&lt;/a&gt; and &lt;a href=&#34;https://hydra.cc/&#34;&gt;Hydra&lt;/a&gt; to streamline the training of a deep neural network—in our case,&#xA;a Llama model trained on protein sequences, which will allow for protein sequence generation via next amino acid prediction.&#xA;We’ll also integrate components from &lt;a href=&#34;https://huggingface.co/docs/transformers/index&#34;&gt;Hugging Face&lt;/a&gt; to leverage state-of-the-art language model architectures.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>
