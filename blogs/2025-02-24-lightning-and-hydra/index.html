@@ -1,146 +1,10 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Use Lightning and Hydra to train your neural networks - Dexiong Chen</title>
-    <meta property="og:title" content="Use Lightning and Hydra to train your neural networks - Dexiong Chen">
-    
-    <meta name="twitter:card" content="summary">
-
-    
-      
-    
-
-    
-      
-      <meta property="description" content="Deep learning research is moving at an incredible pace, and so are the tools that support rapid experimentation. In this post, we&amp;rsquo;ll explore how to combine PyTorch Lightning and Hydra to &amp;hellip;">
-      <meta property="og:description" content="Deep learning research is moving at an incredible pace, and so are the tools that support rapid experimentation. In this post, we&amp;rsquo;ll explore how to combine PyTorch Lightning and Hydra to &amp;hellip;">
-      
-    
-
-    
-    
-
-    
-
-    
-    
-
-
-
-
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
-    <script src="https://kit.fontawesome.com/64564216b5.js" crossorigin="anonymous"></script>
-    
-      <link rel="stylesheet" href="/css/main.min.25eaa5cbc8008724c806fcf2639fa520da99ad8fc75d1bafab3a54045bf054b7.css" integrity="sha256-Jeqly8gAhyTIBvzyY5&#43;lINqZrY/HXRuvqzpUBFvwVLc=" crossorigin="anonymous">
-  </head>
-
-  
-  <body class="blogs">
-    <header class="masthead">
-      <h1><a href="/">Dexiong Chen</a></h1>
-
-
-
-<p class="contact">
-<img src="/images/selfie.jpg" alt="Photo" style="max-width:70%;min-width:100px;">
-</p>
-
-
-
-
-<p class="contact"><i class="fa-regular fa-envelope"></i> dexiongchen@hkust-gz.edu.cn</p>
-
-<p class="contact"><a href="https://scholar.google.com/citations?user=goM0yAIAAAAJ"><i class='ai ai-google-scholar-square ai-2x'></i></a> <a href="https://github.com/claying"><i class='fa-brands fa-github-square fa-2x'></i></a> <a href="https://www.linkedin.com/in/dexiong-chen-12206aa5/"><i class='fa-brands fa-linkedin fa-2x'></i></a> <a href="https://gitlab.inria.fr/dchen"><i class='fa-brands fa-gitlab-square fa-2x'></i></a></p>
-
-
-
-      <nav class="menu">
-  <input id="menu-check" type="checkbox" hidden/>
-  <label id="menu-label" for="menu-check" class="unselectable" hidden>
-    <span class="icon close-icon">✕</span>
-    <span class="icon open-icon">☰</span>
-    <span class="text">Menu</span>
-  </label>
-  <ul>
-  
-  
-  <li><a href="/publications/">Publications</a></li>
-  
-  <li><a href="/software/">Software</a></li>
-  
-  <li><a href="/team/">Team</a></li>
-  
-  <li><a href="/teaching/">Teaching</a></li>
-  
-  <li><a href="/talks/">Talks</a></li>
-  
-  <li><a href="/blogs/">Blogs</a></li>
-  
-  
-  </ul>
-</nav>
-
-    </header>
-
-    <article class="main">
-      <header class="title">
-      <h1>Use Lightning and Hydra to train your neural networks</h1>
-
-<h3>Dexiong Chen
-  /  2025-02-24</h3>
-<hr>
-
-
-<span class="badges">
-    
-    <a href=https://github.com/claying/ProLlama><img alt=Github src="https://img.shields.io/badge/Github-grey.svg"></a>
-    
-</span>
-
-<p><span class="tldr"><strong>TL;DR:</strong> <em>A tutorial for training a Llama model on protein sequences from scratch with less than 500 lines of code.</em></span></p>
-
-      </header>
-
-
- <h2>Table of contents</h2> <nav id="TableOfContents">
-  <ul>
-    <li><a href="#getting-started">Getting started</a></li>
-    <li><a href="#project-structure">Project structure</a></li>
-    <li><a href="#building-the-model-pipeline">Building the model pipeline</a></li>
-    <li><a href="#configuration-with-hydra">Configuration with Hydra</a></li>
-    <li><a href="#training-with-pytorch-lightning">Training with Pytorch Lightning</a></li>
-    <li><a href="#generating-protein-sequences">Generating protein sequences</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
-  </ul>
-</nav> 
-<!-- **TL;DR:** _A [tutorial][4] for training a Llama model on protein sequences from scratch with less than 500 lines of code._ -->
-<p>Deep learning research is moving at an incredible pace, and so are the tools that support rapid experimentation.
-In this post, we&rsquo;ll explore how to combine <a href="https://lightning.ai/">PyTorch Lightning</a> and <a href="https://hydra.cc/">Hydra</a> to streamline the training of a deep neural network—in our case,
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Use Lightning and Hydra to train your neural networks · Dexiong Chen</title><meta name=description content=" Deep learning research is moving at an incredible pace, and so are the tools that support rapid experimentation. In this post, we&rsquo;ll explore how to combine PyTorch Lightning and Hydra to …"><meta name=author content="Dexiong Chen"><link rel=canonical href=https://claying.github.io/blogs/2025-02-24-lightning-and-hydra/><meta property="og:title" content="Use Lightning and Hydra to train your neural networks · Dexiong Chen"><meta property="og:type" content="article"><meta property="og:url" content="https://claying.github.io/blogs/2025-02-24-lightning-and-hydra/"><meta name=twitter:card content="summary"><meta property="og:image" content="https://claying.github.io/images/selfie_hu_eead61c00134ec6d.jpg"><link rel=icon type=image/jpeg href=/images/selfie_hu_c1f9fa467fa9034.jpg><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css crossorigin=anonymous><link rel=stylesheet href=/css/site.min.da8359f2b3016dad8f92a5e3b3090447cdebe4ce8cb933903eca424b83febe57.css integrity="sha256-2oNZ8rMBba2PkqXjswkER83r5M6MuTOQPspCS4P+vlc="></head><body class=blogs><a class=skip href=#main>Skip to content</a><header class=masthead><a class=brand href=/>Dexiong Chen</a>
+<img class=portrait src=/images/selfie_hu_7e5e44cf97ab9e11.jpg width=170 height=170 alt="Portrait of Dexiong Chen"><p class=role>Assistant Professor, AI Thrust<br><a href=https://www.hkust-gz.edu.cn/>HKUST (Guangzhou)</a></p><p class=contact><a href=mailto:dexiongchen@hkust-gz.edu.cn><i class="fa-regular fa-envelope" aria-hidden=true></i> dexiongchen@hkust-gz.edu.cn</a></p><p class=social><a href="https://scholar.google.com/citations?user=goM0yAIAAAAJ" title="Google Scholar" aria-label="Google Scholar"><i class="ai ai-google-scholar" aria-hidden=true></i></a><a href=https://github.com/claying title=GitHub aria-label=GitHub><i class="fa-brands fa-github" aria-hidden=true></i></a><a href=https://www.linkedin.com/in/dexiong-chen-12206aa5/ title=LinkedIn aria-label=LinkedIn><i class="fa-brands fa-linkedin" aria-hidden=true></i></a><a href=https://gitlab.inria.fr/dchen title=GitLab aria-label=GitLab><i class="fa-brands fa-gitlab" aria-hidden=true></i></a></p><nav class=menu><input id=menu-check type=checkbox hidden>
+<label id=menu-label for=menu-check>☰ Menu</label><ul><li><a href=/publications/>Publications</a></li><li><a href=/software/>Software</a></li><li><a href=/team/>Team</a></li><li><a href=/teaching/>Teaching</a></li><li><a href=/talks/>Talks</a></li><li class=active><a href=/blogs/>Blog</a></li></ul></nav></header><main id=main class=main><article><header class=title><h1>Use Lightning and Hydra to train your neural networks</h1><p class=meta>February 24, 2025 · Dexiong Chen · Bioinformatics, Deep learning, Coding</p><p class=badges><a href=https://github.com/claying/ProLlama><i class="fa-brands fa-github" aria-hidden=true></i> Github</a></p><p class=tldr><strong>TL;DR</strong> A tutorial for training a Llama model on protein sequences from scratch with less than 500 lines of code.</p></header><nav class=toc><h2>Contents</h2><nav id=TableOfContents><ul><li><a href=#getting-started>Getting started</a></li><li><a href=#project-structure>Project structure</a></li><li><a href=#building-the-model-pipeline>Building the model pipeline</a></li><li><a href=#configuration-with-hydra>Configuration with Hydra</a></li><li><a href=#training-with-pytorch-lightning>Training with Pytorch Lightning</a></li><li><a href=#generating-protein-sequences>Generating protein sequences</a></li><li><a href=#conclusion>Conclusion</a></li></ul></nav></nav><p>Deep learning research is moving at an incredible pace, and so are the tools that support rapid experimentation.
+In this post, we&rsquo;ll explore how to combine <a href=https://lightning.ai/>PyTorch Lightning</a> and <a href=https://hydra.cc/>Hydra</a> to streamline the training of a deep neural network—in our case,
 a Llama model trained on protein sequences, which will allow for protein sequence generation via next amino acid prediction.
-We’ll also integrate components from <a href="https://huggingface.co/docs/transformers/index">Hugging Face</a> to leverage state-of-the-art language model architectures.</p>
-<blockquote class="markdown-blockquote">
-  <p>Why protein sequences and Llama?</p>
-<p>Protein sequences, while traditionally the domain of bioinformatics, have recently garnered attention as sequences that can benefit from language-modeling techniques (see <em>e.g.</em> <a href="https://github.com/facebookresearch/esm">ESM</a> and <a href="https://www.nature.com/articles/s41587-022-01618-2">ProGen</a>). By treating amino acids like tokens and protein chains like sentences, we can explore the adaptability of models like GPT or Llama—originally designed for natural language—to capture meaningful patterns in proteins and generate new sequences.</p>
-
-</blockquote><h2 id="getting-started">Getting started</h2>
-<p>Before diving into code, install the required packages:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install torch torchvision lightning hydra-core transformers fair-esm
-</span></span></code></pre></div><p>This setup gives you:</p>
-<ul>
-<li><a href="https://lightning.ai/">PyTorch Lightning</a> for structured and simple training pipelines.</li>
-<li><a href="https://hydra.cc/">Hydra</a> for managing configurations.</li>
-<li><a href="https://huggingface.co/docs/transformers/index">Transformers</a> (Hugging Face) for the Llama architecture.</li>
-<li><a href="https://github.com/facebookresearch/esm">ESM</a> for protein sequence tokenizers.</li>
-</ul>
-<p>I use <a href="mamba.readthedocs.io">micromamba</a> for package management, but feel free to use your preferred tool.</p>
-<h2 id="project-structure">Project structure</h2>
-<p>The repository for a project using Hydra and Lightning follows a clean, modular structure. Generally, I have two principal directories, one for the Hydra configuration files and the other one for the Python code. The scripts for training and inference are in the root path.</p>
-<pre tabindex="0"><code>.
+We’ll also integrate components from <a href=https://huggingface.co/docs/transformers/index>Hugging Face</a> to leverage state-of-the-art language model architectures.</p><blockquote class=markdown-blockquote><p>Why protein sequences and Llama?</p><p>Protein sequences, while traditionally the domain of bioinformatics, have recently garnered attention as sequences that can benefit from language-modeling techniques (see <em>e.g.</em> <a href=https://github.com/facebookresearch/esm>ESM</a> and <a href=https://www.nature.com/articles/s41587-022-01618-2>ProGen</a>). By treating amino acids like tokens and protein chains like sentences, we can explore the adaptability of models like GPT or Llama—originally designed for natural language—to capture meaningful patterns in proteins and generate new sequences.</p></blockquote><h2 id=getting-started>Getting started</h2><p>Before diving into code, install the required packages:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>pip install torch torchvision lightning hydra-core transformers fair-esm
+</span></span></code></pre></div><p>This setup gives you:</p><ul><li><a href=https://lightning.ai/>PyTorch Lightning</a> for structured and simple training pipelines.</li><li><a href=https://hydra.cc/>Hydra</a> for managing configurations.</li><li><a href=https://huggingface.co/docs/transformers/index>Transformers</a> (Hugging Face) for the Llama architecture.</li><li><a href=https://github.com/facebookresearch/esm>ESM</a> for protein sequence tokenizers.</li></ul><p>I use <a href=mamba.readthedocs.io>micromamba</a> for package management, but feel free to use your preferred tool.</p><h2 id=project-structure>Project structure</h2><p>The repository for a project using Hydra and Lightning follows a clean, modular structure. Generally, I have two principal directories, one for the Hydra configuration files and the other one for the Python code. The scripts for training and inference are in the root path.</p><pre tabindex=0><code>.
 ├── config/             # Hydra configuration files
 │   ├── train.yaml
 │   └── ...    
@@ -150,315 +14,171 @@ We’ll also integrate components from <a href="https://huggingface.co/docs/tran
 │   └── model.py        # Our Pytorch Lightning model
 ├── train.py            # Training script
 └── generate.py         # Generation script
-</code></pre><h2 id="building-the-model-pipeline">Building the model pipeline</h2>
-<h3 id="data-preparation">Data preparation</h3>
-<p>As Lightning largely reduces boilerplate code for training, the most time-consuming part to code is the data preparation.
-We&rsquo;ll use <a href="https://www.uniprot.org/help/downloads">SwissProt</a>, a dataset of about 550K protein sequences, as our proof of concept. The data preparation involves:</p>
-<ol>
-<li>Creating a FASTA dataset class that handles downloading and splitting</li>
-<li>Implementing a LightningDataModule for data loading</li>
-<li>Using ESM&rsquo;s tokenizer for sequence processing</li>
-</ol>
-<h4 id="fasta-dataset-class">FASTA dataset class</h4>
-<p>People often use <a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> files to store sequence data, so I wrote a class to process such datasets using <a href="https://github.com/facebookresearch/esm">ESM</a>&rsquo;s <code>esm.data.FastaBatchedDataset</code>. My <a href="https://github.com/claying/ProLlama/blob/main/prollama/data/fasta_dataset.py">implementation</a> automatically downloads and splits the dataset into training and validation datasets (I split 10% of the data as the validation set). You can easily adapt my code to handle any sequence data in FASTA.</p>
-<h4 id="lightningdatamodule">LightningDataModule</h4>
-<p><a href="https://lightning.ai/docs/pytorch/stable/data/datamodule.html">LightningDataModule</a> provides an easy way to handle data loaders for Lightning&rsquo;s trainer. You need to implement train/val/test data loaders within this module, as well as <code>prepare_data</code> and <code>setup</code> which deals with downloading and assigning train/val datasets for use in dataloaders.</p>
-<h4 id="tokenizer">Tokenizer</h4>
-<p>Here&rsquo;s how we set up the tokenizer:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">from</span> <span style="color:#24292e">esm</span> <span style="color:#cf222e">import</span> Alphabet
-</span></span><span style="display:flex;"><span>alphabet <span style="color:#0550ae">=</span> Alphabet<span style="color:#0550ae">.</span>from_architecture<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;ESM-1b&#34;</span><span style="color:#1f2328">)</span> <span style="color:#57606a"># ESM-2 and ESM-1b used the same alphabet</span>
-</span></span><span style="display:flex;"><span>collate_fn <span style="color:#0550ae">=</span> <span style="color:#cf222e">lambda</span> batch<span style="color:#1f2328">:</span> alphabet<span style="color:#0550ae">.</span>get_batch_converter<span style="color:#1f2328">(</span>truncation_length<span style="color:#1f2328">)(</span>batch<span style="color:#1f2328">)[</span><span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">]</span>
-</span></span></code></pre></div><p>The full code for our <code>ProteinDataset</code> inherited from <code>LightningDataModule</code> can be found <a href="https://github.com/claying/ProLlama/blob/main/prollama/data/pl_dataset.py">here</a>.</p>
-<h3 id="defining-the-llama-model">Defining the Llama model</h3>
-<p>We&rsquo;ll use Hugging Face&rsquo;s <a href="https://huggingface.co/docs/transformers/model_doc/llama">Llama</a> implementation, configured as a small 6-layer model:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model_config <span style="color:#0550ae">=</span> <span style="color:#1f2328">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#57606a"># model sizes related</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;hidden_size&#39;</span><span style="color:#1f2328">:</span> <span style="color:#0550ae">512</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;num_hidden_layers&#39;</span><span style="color:#1f2328">:</span> <span style="color:#0550ae">6</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;num_attention_heads&#39;</span><span style="color:#1f2328">:</span> <span style="color:#0550ae">8</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;intermediate_size&#39;</span><span style="color:#1f2328">:</span> <span style="color:#0550ae">4</span> <span style="color:#0550ae">*</span> <span style="color:#0550ae">512</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;n_embd&#39;</span><span style="color:#1f2328">:</span> <span style="color:#0550ae">512</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;n_head&#39;</span><span style="color:#1f2328">:</span> <span style="color:#0550ae">8</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;n_layer&#39;</span><span style="color:#1f2328">:</span> <span style="color:#0550ae">6</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#57606a"># vocabulary hyperparameters based ESM&#39;s alphabet </span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;vocab_size&#39;</span><span style="color:#1f2328">:</span> <span style="color:#6639ba">len</span><span style="color:#1f2328">(</span>alphabet<span style="color:#1f2328">),</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;bos_token_id&#39;</span><span style="color:#1f2328">:</span> alphabet<span style="color:#0550ae">.</span>cls_idx<span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;eos_token_id&#39;</span><span style="color:#1f2328">:</span> alphabet<span style="color:#0550ae">.</span>eos_idx<span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0a3069">&#39;pad_token_id&#39;</span><span style="color:#1f2328">:</span> alphabet<span style="color:#0550ae">.</span>padding_idx<span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
-</span></span><span style="display:flex;"><span>model <span style="color:#0550ae">=</span> transformers<span style="color:#0550ae">.</span>LlamaForCausalLM<span style="color:#1f2328">(</span>transformers<span style="color:#0550ae">.</span>LlamaConfig<span style="color:#1f2328">(</span><span style="color:#0550ae">**</span>model_config<span style="color:#1f2328">))</span>
-</span></span></code></pre></div><p>Note that you can also choose the attention implementation though &ldquo;attn_implementation&rdquo;, I recommend to use the native Pytorch implementation (&ldquo;sdpa&rdquo;) which is the simplest and most robust.</p>
-<h3 id="lightning-module">Lightning Module</h3>
-<p>PyTorch Lightning abstracts away much of the boilerplate involved in training loops. Here’s how you can wrap our Llama model into a LightningModule:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a">### ./prollama/model.py</span>
-</span></span><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#1f2328">ProLlama</span><span style="color:#1f2328">(</span>pl<span style="color:#0550ae">.</span>LightningModule<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">__init__</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> cfg<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#6639ba">super</span><span style="color:#1f2328">()</span><span style="color:#0550ae">.</span><span style="color:#6639ba">__init__</span><span style="color:#1f2328">()</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>cfg <span style="color:#0550ae">=</span> cfg
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>instantiate_datamodule<span style="color:#1f2328">()</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>instantiate_model<span style="color:#1f2328">(</span>cfg<span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>save_hyperparameters<span style="color:#1f2328">()</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">instantiate_datamodule</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># instantiate the DataModule</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">...</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">instantiate_model</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> cfg<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># instantiate the Llama model</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">...</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">training_step</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> batch<span style="color:#1f2328">,</span> batch_idx<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># your training step, which can calculate the loss and log it</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">...</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">validation_step</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> batch<span style="color:#1f2328">,</span> batch_idx<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># your validation step, which can calculate the val loss and other val metrics</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># you can also calculate epoch-level metrics if you need all the predictions</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">...</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">configure_optimizers</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># your optimizer</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">...</span>
-</span></span></code></pre></div><p>For validation and test metrics, you can also implement <code>on_validation_epoch_end()</code> if you need all the predictions (see <a href="https://lightning.ai/docs/pytorch/stable/common/lightning_module.html#validation-epoch-level-metrics">here</a>).</p>
-<p>As the Llama model from Hugging Face has already implemented the <code>forward</code> method and even the loss computation, we can simply call the model to compute the loss:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">training_step</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> batch<span style="color:#1f2328">,</span> batch_idx<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#57606a"># self.model was defined as a transformers.LlamaForCausalLM object</span>
-</span></span><span style="display:flex;"><span>    loss <span style="color:#0550ae">=</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>model<span style="color:#1f2328">(</span>input_ids<span style="color:#0550ae">=</span>batch<span style="color:#1f2328">,</span> labels<span style="color:#0550ae">=</span>batch<span style="color:#1f2328">)</span><span style="color:#0550ae">.</span>loss
-</span></span><span style="display:flex;"><span>    <span style="color:#57606a"># sync_dist is useful for multi-GPU training like DDP</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>log<span style="color:#1f2328">(</span><span style="color:#0a3069">f</span><span style="color:#0a3069">&#34;train/loss&#34;</span><span style="color:#1f2328">,</span> loss<span style="color:#1f2328">,</span> on_step<span style="color:#0550ae">=</span><span style="color:#cf222e">True</span><span style="color:#1f2328">,</span> on_epoch<span style="color:#0550ae">=</span><span style="color:#cf222e">False</span><span style="color:#1f2328">,</span> sync_dist<span style="color:#0550ae">=</span><span style="color:#cf222e">True</span><span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> loss
-</span></span></code></pre></div><h2 id="configuration-with-hydra">Configuration with Hydra</h2>
-<p>Hydra manages our experiment configurations through YAML files. It&rsquo;s a cleaner and more powerful option compared to Python&rsquo;s built-in <a href="https://docs.python.org/3/library/argparse.html">argparse</a>. Here&rsquo;s a sample configuration (e.g., in <code>train.yaml</code>):</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#57606a">### ./config/train.yaml</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#57606a"># @package _global_</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">defaults</span><span style="color:#1f2328">:</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span>- _self_<span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span>- <span style="color:#0550ae">datamodule</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>swissprot<span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span>- <span style="color:#0550ae">mode</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>default<span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">train</span><span style="color:#1f2328">:</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span><span style="color:#0550ae">optimizer</span><span style="color:#1f2328">:</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#0550ae">_target_</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>torch.optim.AdamW<span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#0550ae">lr</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#0550ae">0.001</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span><span style="color:#0550ae">lr_scheduler</span><span style="color:#1f2328">:</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#0550ae">_target_</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>transformers.get_cosine_schedule_with_warmup<span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#0550ae">num_warmup_steps</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>${eval:0.01 * ${trainer.max_steps}}<span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#0550ae">num_training_steps</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>${trainer.max_steps}<span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">trainer</span><span style="color:#1f2328">:</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span>...<span style="color:#fff">
-</span></span></span></code></pre></div><p>Then in your main script for training (let&rsquo;s say <code>train.py</code>) , you can load the above configurations into a Python object:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a">### ./train.py</span>
-</span></span><span style="display:flex;"><span><span style="color:#cf222e">import</span> <span style="color:#24292e">hydra</span>
-</span></span><span style="display:flex;"><span><span style="color:#cf222e">from</span> <span style="color:#24292e">omegaconf</span> <span style="color:#cf222e">import</span> OmegaConf
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#0550ae">@hydra.main</span><span style="color:#1f2328">(</span>
-</span></span><span style="display:flex;"><span>    version_base<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;1.3&#34;</span><span style="color:#1f2328">,</span> config_path<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;./config&#34;</span><span style="color:#1f2328">,</span> config_name<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;train&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#cf222e">def</span> <span style="color:#6639ba">main</span><span style="color:#1f2328">(</span>cfg<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#6639ba">print</span><span style="color:#1f2328">(</span><span style="color:#0a3069">f</span><span style="color:#0a3069">&#34;Configs:</span><span style="color:#0a3069">\n</span><span style="color:#0a3069">{</span>OmegaConf<span style="color:#0550ae">.</span>to_yaml<span style="color:#1f2328">(</span>cfg<span style="color:#1f2328">)</span><span style="color:#0a3069">}</span><span style="color:#0a3069">&#34;</span><span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#6639ba">print</span><span style="color:#1f2328">(</span><span style="color:#0a3069">f</span><span style="color:#0a3069">&#34;Train optimizer configs:</span><span style="color:#0a3069">\n</span><span style="color:#0a3069">{</span>OmegaConf<span style="color:#0550ae">.</span>to_yaml<span style="color:#1f2328">(</span>cfg<span style="color:#0550ae">.</span>train<span style="color:#0550ae">.</span>optimizer<span style="color:#1f2328">)</span><span style="color:#0a3069">}</span><span style="color:#0a3069">&#34;</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p>Like <a href="https://docs.python.org/3/library/argparse.html">argparse</a>, you can get all information about your configurations through <code>python train.py --help</code>.</p>
-<p>In the above example, we use some key Hydra features that I will detail in the following:</p>
-<ul>
-<li>Group parameters for different components</li>
-<li>Object instantiation through <code>_target_</code></li>
-<li>Custom resolvers for dynamic configuration</li>
-</ul>
-<h4 id="group-parameters">Group parameters</h4>
-<p>Hydra allows you to handle group parameters. For instance, in our above setting, we used the <code>swissprot</code> datamodule and the corresponding file in <code>./config/datamodule/swissprot.yaml</code> contains the specific parameters for the SwissProt dataset:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#57606a">### ./config/datamodule/swissprot.yaml</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">_target_</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>prollama.data.ProteinDataset<span style="color:#fff"> </span><span style="color:#57606a"># this is the class that you want to use to instantiate your object</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">root</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>./datasets/SwissProt<span style="color:#fff"> </span><span style="color:#57606a"># parameter for this class</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">dataset_name</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>swissprot<span style="color:#fff"> </span><span style="color:#57606a"># another parameter for this class</span><span style="color:#fff">
-</span></span></span></code></pre></div><h4 id="object-instantiation">Object instantiation</h4>
-<p>The class name provided in the <code>_target_</code> allows you to instantiate objects from that class using <code>hydra.utils.instantiate()</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a"># this will create an object of prollama.data.ProteinDataset </span>
-</span></span><span style="display:flex;"><span><span style="color:#57606a"># with the root and dataset_name provided in the above yaml file</span>
-</span></span><span style="display:flex;"><span>datamodule <span style="color:#0550ae">=</span> hydra<span style="color:#0550ae">.</span>utils<span style="color:#0550ae">.</span>instantiate<span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>cfg<span style="color:#0550ae">.</span>datamodule<span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p>More details can be found <a href="https://hydra.cc/docs/advanced/instantiate_objects/overview/">here</a>. Moreover, <code>hydra.utils.call()</code> allows you to call functions defined through <code>_target_</code>, as showcased in the <code>train.lr_scheduler</code> above.</p>
-<h4 id="custom-resolver-for-dynamic-configuration">Custom resolver for dynamic configuration</h4>
-<p>As Hydra relies on OmegaConf, which allows for registering <a href="https://omegaconf.readthedocs.io/en/2.1_branch/custom_resolvers.html">custom resolver</a>, you can define custom resolvers that parse the YAML file in a way that you expect. For instance, in the above example, we want the number of warmup steps to be always the 1% of the total training steps:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#57606a">### ./config/train.yaml</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">trainer</span><span style="color:#1f2328">:</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span><span style="color:#0550ae">max_steps</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#0550ae">100000</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">train</span><span style="color:#1f2328">:</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span><span style="color:#0550ae">lr_scheduler</span><span style="color:#1f2328">:</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#0550ae">_target_</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>transformers.get_cosine_schedule_with_warmup<span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#0550ae">num_warmup_steps</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>${eval:${trainer.max_steps}<span style="color:#fff"> </span><span style="color:#57606a">// 100}</span><span style="color:#fff">
-</span></span></span></code></pre></div><p>But the original resolver does not permit math calculation. Thus, we use the <code>eval</code> tag to tell our resolver that there&rsquo;s a math calculation in the given text. Then, in our Python code, we can define the following resolver, which will apply the <code>eval</code> function to <a href="https://docs.python.org/3/library/functions.html#eval">evaluate any string as Python code</a>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a">### ./train.py</span>
-</span></span><span style="display:flex;"><span>OmegaConf<span style="color:#0550ae">.</span>register_new_resolver<span style="color:#1f2328">(</span><span style="color:#0a3069">&#39;eval&#39;</span><span style="color:#1f2328">,</span> <span style="color:#6639ba">eval</span><span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p>Now if you print the <code>cfg</code> in <code>train.py</code> via <em>e.g.</em> <code>print(OmegaConf.to_container(cfg, resolve=True))</code>, you will obtain:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>trainer:
-</span></span><span style="display:flex;"><span>  max_steps: <span style="color:#0550ae">100000</span>
-</span></span><span style="display:flex;"><span>train:
-</span></span><span style="display:flex;"><span>  lr_scheduler:
-</span></span><span style="display:flex;"><span>    _target_: transformers.get_cosine_schedule_with_warmup
-</span></span><span style="display:flex;"><span>    num_warmup_steps: <span style="color:#0550ae">1000</span>
-</span></span></code></pre></div><p>Of course, there are a lot more functionalities of Hydra useful for machine learning projects. I will leave further exploration to you.</p>
-<h2 id="training-with-pytorch-lightning">Training with Pytorch Lightning</h2>
-<p>Now that we have set up our data, model, and configuration, it&rsquo;s time to train our network. Using the PyTorch Lightning Trainer, you can easily kick off training with a few lines of code:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a">### ./train.py</span>
-</span></span><span style="display:flex;"><span><span style="color:#cf222e">from</span> <span style="color:#24292e">prollama.model</span> <span style="color:#cf222e">import</span> ProLlama
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#57606a"># Instantiate the model and datamodule</span>
-</span></span><span style="display:flex;"><span>model <span style="color:#0550ae">=</span> ProLlama<span style="color:#1f2328">(</span>cfg<span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span>datamodule <span style="color:#0550ae">=</span> model<span style="color:#0550ae">.</span>_datamodule
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#57606a"># Instantiate the trainer</span>
-</span></span><span style="display:flex;"><span>trainer <span style="color:#0550ae">=</span> hydra<span style="color:#0550ae">.</span>utils<span style="color:#0550ae">.</span>instantiate<span style="color:#1f2328">(</span>cfg<span style="color:#0550ae">.</span>trainer<span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#57606a"># Train the model</span>
-</span></span><span style="display:flex;"><span>trainer<span style="color:#0550ae">.</span>fit<span style="color:#1f2328">(</span>model<span style="color:#1f2328">,</span> datamodule<span style="color:#1f2328">)</span>
-</span></span></code></pre></div><p>PyTorch Lightning handles the boilerplate, letting you focus on model development while automatically logging progress, validation loss, and other key metrics. You can add your favorite loggers during training, as well save the best checkpoints:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a">### ./train.py</span>
-</span></span><span style="display:flex;"><span>loggers <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span>pl<span style="color:#0550ae">.</span>loggers<span style="color:#0550ae">.</span>WandbLogger<span style="color:#1f2328">(</span>project<span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;ProLlama&#34;</span><span style="color:#1f2328">)]</span> <span style="color:#57606a"># we use the wandb logger</span>
-</span></span><span style="display:flex;"><span>callbacks <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span>
-</span></span><span style="display:flex;"><span>    pl<span style="color:#0550ae">.</span>callbacks<span style="color:#0550ae">.</span>ModelCheckpoint<span style="color:#1f2328">(</span>
-</span></span><span style="display:flex;"><span>    monitor<span style="color:#0550ae">=</span><span style="color:#0a3069">&#39;val/loss&#39;</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    dirpath<span style="color:#0550ae">=</span>cfg<span style="color:#0550ae">.</span>logs<span style="color:#0550ae">.</span>path<span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    filename<span style="color:#0550ae">=</span>cfg<span style="color:#0550ae">.</span>model<span style="color:#0550ae">.</span>model_name<span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>    mode<span style="color:#0550ae">=</span><span style="color:#0a3069">&#39;min&#39;</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span><span style="color:#1f2328">)]</span>
-</span></span><span style="display:flex;"><span><span style="color:#57606a"># Instantiate the Trainer</span>
-</span></span><span style="display:flex;"><span>trainer <span style="color:#0550ae">=</span> hydra<span style="color:#0550ae">.</span>utils<span style="color:#0550ae">.</span>instantiate<span style="color:#1f2328">(</span>cfg<span style="color:#0550ae">.</span>trainer<span style="color:#1f2328">,</span> logger<span style="color:#0550ae">=</span>logger<span style="color:#1f2328">,</span> callbacks<span style="color:#0550ae">=</span>callbacks<span style="color:#1f2328">)</span>
-</span></span></code></pre></div><h4 id="lets-run-the-training-script">Let&rsquo;s run the training script!</h4>
-<p>Now we can run our training script with our default hyperparameters in <code>./config/train.yaml</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python train.py
-</span></span></code></pre></div><p>As a proof-of-concept, we will only train our model for 50000 iterations and we will use <a href="https://wandb.ai/">wandb</a> to log our metrics during traing. Hydra provides a simple way to override the configurations:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python train.py trainer.max_steps<span style="color:#0550ae">=</span><span style="color:#0550ae">50000</span> <span style="color:#953800">wandb</span><span style="color:#0550ae">=</span><span style="color:#6639ba">true</span>
-</span></span></code></pre></div>
-
-<blockquote class="markdown-alert markdown-alert-tip">
-  <p class="markdown-alert-title">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"/></svg>
-    Tip
-  </p>
-  <p>Lightning also offers simple APIs to manage training configurations, such as multi-GPU training, gradient accumulating, etc. We have properly set up all <a href="https://github.com/claying/ProLlama/blob/main/config/train.yaml">these hyperparameters</a> in <code>./config/train.yaml</code> to ensure a stable and fast training on a NVIDIA H100 GPU.</p>
-</blockquote>
-
-<blockquote class="markdown-alert markdown-alert-note">
-  <p class="markdown-alert-title">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-    Note
-  </p>
-  <p>My <a href="https://github.com/claying/ProLlama/blob/main/config/train.yaml">configuration</a> supports multi-GPU training automatically as I have set <code>trainer.devices=auto</code>. See its <a href="https://lightning.ai/docs/pytorch/stable/common/trainer.html#trainer-class-api">doc</a> for more details.</p>
-</blockquote><p>Here are my training and validation losses:</p>
-<img src="../images/prollama_train.png" alt="ProLlama train loss" width="380"/>
-<img src="../images/prollama_val.png" alt="ProLlama val loss" width="380"/>
-<p>Everything looks good except a little bit overfitting at later stages, which is fine thanks to the checkpointing.</p>
-<h2 id="generating-protein-sequences">Generating protein sequences</h2>
-<p>Once your model is trained, you can use it to generate new protein sequences. The <code>generate.py</code> script leverages the trained Llama model to perform next amino acid prediction. Thanks to Hugging Face, we don&rsquo;t need to implement ourselves the generation code. With HF&rsquo;s <code>generate</code> <a href="https://huggingface.co/docs/transformers/en/main_classes/text_generation">method</a>, we can flexibly switch between different sampling strategies, such as multinomial sampling or beam search decoding. We can also adopt the top-k and top-p sampling with the multinomial sampling, which is commonly used in LLMs. Below we provide an example of how to call this function within our LightningModule:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#57606a">### ./prollama/model.py</span>
-</span></span><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#1f2328">ProLlama</span><span style="color:#1f2328">(</span>pl<span style="color:#0550ae">.</span>LightningModule<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">@torch.inference_mode</span><span style="color:#1f2328">()</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">generate</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span> num_samples<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># we prefill the input_ids with the start token index (which is called cls_idx in ESM)</span>
-</span></span><span style="display:flex;"><span>        input_ids <span style="color:#0550ae">=</span> torch<span style="color:#0550ae">.</span>full<span style="color:#1f2328">(</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#1f2328">(</span>num_samples<span style="color:#1f2328">,</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">),</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>alphabet<span style="color:#0550ae">.</span>cls_idx<span style="color:#1f2328">,</span> dtype<span style="color:#0550ae">=</span>torch<span style="color:#0550ae">.</span>long<span style="color:#1f2328">,</span> device<span style="color:#0550ae">=</span><span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>device
-</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># self.model is a transformers.LlamaForCausalLM object</span>
-</span></span><span style="display:flex;"><span>        toks <span style="color:#0550ae">=</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>model<span style="color:#0550ae">.</span>generate<span style="color:#1f2328">(</span>
-</span></span><span style="display:flex;"><span>            input_ids<span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>            do_sample<span style="color:#0550ae">=</span><span style="color:#cf222e">True</span><span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>            top_k<span style="color:#0550ae">=</span><span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>cfg<span style="color:#0550ae">.</span>sampling<span style="color:#0550ae">.</span>top_k<span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>            temperature<span style="color:#0550ae">=</span><span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>cfg<span style="color:#0550ae">.</span>sampling<span style="color:#0550ae">.</span>temperature<span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>            max_length<span style="color:#0550ae">=</span><span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>cfg<span style="color:#0550ae">.</span>sampling<span style="color:#0550ae">.</span>max_length<span style="color:#1f2328">,</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span>        seq_list <span style="color:#0550ae">=</span> <span style="color:#1f2328">[]</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">for</span> i <span style="color:#0550ae">in</span> <span style="color:#6639ba">range</span><span style="color:#1f2328">(</span>num_samples<span style="color:#1f2328">):</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#57606a"># we remove the start, end, and padding indices</span>
-</span></span><span style="display:flex;"><span>            tok_seq <span style="color:#0550ae">=</span> toks<span style="color:#1f2328">[</span>i<span style="color:#1f2328">][</span><span style="color:#0550ae">1</span><span style="color:#1f2328">:]</span>
-</span></span><span style="display:flex;"><span>            tok_seq <span style="color:#0550ae">=</span> tok_seq<span style="color:#1f2328">[(</span>tok_seq <span style="color:#0550ae">!=</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>alphabet<span style="color:#0550ae">.</span>eos_idx<span style="color:#1f2328">)</span> <span style="color:#0550ae">&amp;</span> <span style="color:#1f2328">(</span>tok_seq <span style="color:#0550ae">!=</span> <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>alphabet<span style="color:#0550ae">.</span>padding_idx<span style="color:#1f2328">)]</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#57606a"># we use the alphabet from ESM-2 to decode the indices to the amino acids</span>
-</span></span><span style="display:flex;"><span>            seq <span style="color:#0550ae">=</span> <span style="color:#0a3069">&#34;&#34;</span><span style="color:#0550ae">.</span>join<span style="color:#1f2328">([</span><span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>alphabet<span style="color:#0550ae">.</span>get_tok<span style="color:#1f2328">(</span>tok<span style="color:#0550ae">.</span>item<span style="color:#1f2328">())</span> <span style="color:#cf222e">for</span> tok <span style="color:#0550ae">in</span> tok_seq<span style="color:#1f2328">])</span>
-</span></span><span style="display:flex;"><span>            seq_list<span style="color:#0550ae">.</span>append<span style="color:#1f2328">(</span>seq<span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> seq_list
-</span></span></code></pre></div><p>You can run the following code to generate some samples:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python generate.py model.pretrained_path<span style="color:#0550ae">=</span><span style="color:#0a3069">${</span><span style="color:#953800">path_to_your_pretrained_model</span><span style="color:#0a3069">}</span> sampling.num_samples<span style="color:#0550ae">=</span><span style="color:#0550ae">5</span>
-</span></span></code></pre></div><p>this will give you:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Generated samples:
-</span></span><span style="display:flex;"><span>Protein 1: MKSKLKLHGFNNLTKTLSFNIYDICYAETPEDLQAYVQYIDEEYDADGNLIVFSIDITLPERNGTYIAKQPGQDHLLSVYHLTPENNQRDNSPLGTGTVLQIPLV
-</span></span><span style="display:flex;"><span>Protein 2: MTSLISLAGTVLPLLLALCAAVTTALDAEALPVTEGPPLETLSERVRLQLLVALQPARVEELTRDEIDAILLEAVGRGAATVPAVALRLGARLLLAARLSQAGLRGRVEELEADLDAAARQLLARRVLGDGEALSRLREADDPARARGRLLDPEPGGEVTFDGSGDGRDGRAGVPSVARERAALRGLPDALDSLLERRVDDAVRDAAGATVAAGTRRRAVAAAGPAGERPGRRRVSPAGPAVVDRGLPARRALEVSAPAARAGPDTLVPEEEPLTVAADGSAAGALRRRERADAVVGAAGERLDARDVVGVTPGGGAAAAAAVGVGAADDDDPAPRRALRDLAGRRSRLSSSLAVPDPASLLATLRVELTRASSSEDVETGIPGVPRPSRSTLSRLPTSSAGLVGVRARPRLLAPRRVLLDVDEAAPRTARASGAPDVRTVATDAPTGRPGGPDSVATLGGGTGPLLGAPEAAETGSAARDAARRLRVVVLGTADLRLVTDRVGSVEVEGAA
-</span></span><span style="display:flex;"><span>Protein 3: MSDRLAPVEVARAATAPAPRGVREVRRRPGRETVDGLDGGEEAEGGAEAELPEEEEGEDDTRSELQQELAVLEKKFGQPRLRKQLLSLVDQGSRKLSDAKQLLRERLQKEMEEQKGKLLEEKLKSREEKQGINAKVEDVNLLKRHVEDLRQELEEERQKQQEALQAARKRPLRRSQGGSRQDDLPAGVKAGGTTEAAEKAEKEADKRKAERGAKAEEDERRLRKEAKKVRRAEEKRRQAEEEKLKRQEEDRKRSELERRERDRQQQQLAQRKSKEKKKSAGEEQEKLEKVRKLQKDRDRVLSLEKEKKLLMEKKKQRAAAVSDAVASERARRKSKRDEDSAGAPADVSSKSPAETRGEGESEPAVSKTEVVNKPERVQASRKKEEPKRDADKAEKKEKKPPEGELEKVREEEARRPRRRQRKKKRGKAAPTPSASPVERAERRPASERRPSRGGVRRPGRRRGSAQSAVEKDVKDGKKKSSRSDRKDKKSAKGRPEVDDKEKARKKDDKLIE
-</span></span><span style="display:flex;"><span>Protein 4: MTSAVSGLLRQIALSVLLCQIPTSSFLRGGAVLGGESLSSPLAFLSSGRAVDALGSPTLRVTVPELSAGTVGPTTTSVLTAARASSSSGVSPLQPRVPTLSEERTSAADRGGGRLRELLARQLPSLAPAEGSAELVQTAGSQASARGLAALGAGPEAATAQAQPLPASALAQSRSLVGSEAETRAVLLRASATSVRSQLEPRRSLTVTPDASGPASSTSTPSQAASSAAAGSQVELPLGRESEVGAAGSPASAEPVAGGLVAAAERREAELLLEAVATGTSARLTAARSLSASEDGASSSSLAREPRAASGRGALLRVLSLADPGPSGAPSSPGALALGVGTAPGGSRGGRGPRLRAEGPRGPDVPGGERESDPSVPALGAARRELRAGAAEVADSDPGGSRGGGGLVRSGGSASASLPGGPGGQPRGLPPQPPPPGAVTGVLPTGGTASAGGLTVSTPLAGSSLRVLPVAGGGSTLQGTAVTPQVVAPAAVTPPAPVTPVSATGTTTTPSS
-</span></span><span style="display:flex;"><span>Protein 5: MTNNLATLRLARGSAALQTGQPIAVVEGGGLRRLSSSVKIVDSGEVVEVGRGTGGFLGALDLKEQTVRAEFSLFSQQPRHKVKLELKPPSQIKYIPGQEIKEAELLAARYERNEESFPLRVTSFHGILDVVDYSKGLDKGKTVMVMGVEKAVEVRIAKKLIDRYGIDVAVEITAKSFGKKSLDLLLAVQGGDFALADHVTDIDGAVSAMPKVTPKFERERVNPLLVEKIKTTKDKVVVVETENDWIDVDKQVVAALKAQGLRDVLVASAEVVAAESKVKPGETAKVIENVEKDKAEVEKPKEKKKDA
-</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
-<p>That&rsquo;s it! This tutorial demonstrated how to:</p>
-<ul>
-<li>Use Lightning and Hydra to streamline deep learning experiments</li>
-<li>Train a Llama model for protein sequence generation</li>
-<li>Leverage Hugging Face components for state-of-the-art architectures</li>
-</ul>
-<p>The combination of these tools allows for clean, maintainable code while reducing boilerplate and improving experiment management.</p>
-<p>Ready to start experimenting? Check out the <a href="https://github.com/claying/ProLlama">full implementation</a> on GitHub.</p>
-
-
-  <footer>
-  
-<nav class="post-nav">
-  <span class="nav-prev"></span>
-  <span class="nav-next"></span>
-</nav>
-
-
-
-<div class="comments">
-<script src="https://giscus.app/client.js"
-        data-repo="claying/claying.github.io"
-        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjkwNzI2ODY="
-        data-category="Comments"
-        data-category-id="DIC_kwDOChPYLs4CnP2O"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
-
-  
-
-
-
-<script src="//cdn.bootcss.com/highlight.js//highlight.min.js"></script>
-
-
-
-<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
-
-
-
-  
-  <hr>
-  <div class="copyright">© Dexiong Chen 2019-2026</div>
-  
-  </footer>
-  </article>
-  
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-096L0VPDR9"></script>
-      <script>
-        var doNotTrack = false;
-        if ( true ) {
-          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
-          var doNotTrack = (dnt == "1" || dnt == "yes");
-        }
-        if (!doNotTrack) {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-096L0VPDR9');
-        }
-      </script>
-  </body>
-</html>
-
+</code></pre><h2 id=building-the-model-pipeline>Building the model pipeline</h2><h3 id=data-preparation>Data preparation</h3><p>As Lightning largely reduces boilerplate code for training, the most time-consuming part to code is the data preparation.
+We&rsquo;ll use <a href=https://www.uniprot.org/help/downloads>SwissProt</a>, a dataset of about 550K protein sequences, as our proof of concept. The data preparation involves:</p><ol><li>Creating a FASTA dataset class that handles downloading and splitting</li><li>Implementing a LightningDataModule for data loading</li><li>Using ESM&rsquo;s tokenizer for sequence processing</li></ol><h4 id=fasta-dataset-class>FASTA dataset class</h4><p>People often use <a href=https://en.wikipedia.org/wiki/FASTA_format>FASTA</a> files to store sequence data, so I wrote a class to process such datasets using <a href=https://github.com/facebookresearch/esm>ESM</a>&rsquo;s <code>esm.data.FastaBatchedDataset</code>. My <a href=https://github.com/claying/ProLlama/blob/main/prollama/data/fasta_dataset.py>implementation</a> automatically downloads and splits the dataset into training and validation datasets (I split 10% of the data as the validation set). You can easily adapt my code to handle any sequence data in FASTA.</p><h4 id=lightningdatamodule>LightningDataModule</h4><p><a href=https://lightning.ai/docs/pytorch/stable/data/datamodule.html>LightningDataModule</a> provides an easy way to handle data loaders for Lightning&rsquo;s trainer. You need to implement train/val/test data loaders within this module, as well as <code>prepare_data</code> and <code>setup</code> which deals with downloading and assigning train/val datasets for use in dataloaders.</p><h4 id=tokenizer>Tokenizer</h4><p>Here&rsquo;s how we set up the tokenizer:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>esm</span> <span class=kn>import</span> <span class=n>Alphabet</span>
+</span></span><span class=line><span class=cl><span class=n>alphabet</span> <span class=o>=</span> <span class=n>Alphabet</span><span class=o>.</span><span class=n>from_architecture</span><span class=p>(</span><span class=s2>&#34;ESM-1b&#34;</span><span class=p>)</span> <span class=c1># ESM-2 and ESM-1b used the same alphabet</span>
+</span></span><span class=line><span class=cl><span class=n>collate_fn</span> <span class=o>=</span> <span class=k>lambda</span> <span class=n>batch</span><span class=p>:</span> <span class=n>alphabet</span><span class=o>.</span><span class=n>get_batch_converter</span><span class=p>(</span><span class=n>truncation_length</span><span class=p>)(</span><span class=n>batch</span><span class=p>)[</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></div><p>The full code for our <code>ProteinDataset</code> inherited from <code>LightningDataModule</code> can be found <a href=https://github.com/claying/ProLlama/blob/main/prollama/data/pl_dataset.py>here</a>.</p><h3 id=defining-the-llama-model>Defining the Llama model</h3><p>We&rsquo;ll use Hugging Face&rsquo;s <a href=https://huggingface.co/docs/transformers/model_doc/llama>Llama</a> implementation, configured as a small 6-layer model:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>model_config</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1># model sizes related</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;hidden_size&#39;</span><span class=p>:</span> <span class=mi>512</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;num_hidden_layers&#39;</span><span class=p>:</span> <span class=mi>6</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;num_attention_heads&#39;</span><span class=p>:</span> <span class=mi>8</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;intermediate_size&#39;</span><span class=p>:</span> <span class=mi>4</span> <span class=o>*</span> <span class=mi>512</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;n_embd&#39;</span><span class=p>:</span> <span class=mi>512</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;n_head&#39;</span><span class=p>:</span> <span class=mi>8</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;n_layer&#39;</span><span class=p>:</span> <span class=mi>6</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=c1># vocabulary hyperparameters based ESM&#39;s alphabet </span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;vocab_size&#39;</span><span class=p>:</span> <span class=nb>len</span><span class=p>(</span><span class=n>alphabet</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;bos_token_id&#39;</span><span class=p>:</span> <span class=n>alphabet</span><span class=o>.</span><span class=n>cls_idx</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;eos_token_id&#39;</span><span class=p>:</span> <span class=n>alphabet</span><span class=o>.</span><span class=n>eos_idx</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;pad_token_id&#39;</span><span class=p>:</span> <span class=n>alphabet</span><span class=o>.</span><span class=n>padding_idx</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>model</span> <span class=o>=</span> <span class=n>transformers</span><span class=o>.</span><span class=n>LlamaForCausalLM</span><span class=p>(</span><span class=n>transformers</span><span class=o>.</span><span class=n>LlamaConfig</span><span class=p>(</span><span class=o>**</span><span class=n>model_config</span><span class=p>))</span>
+</span></span></code></pre></div><p>Note that you can also choose the attention implementation though &ldquo;attn_implementation&rdquo;, I recommend to use the native Pytorch implementation (&ldquo;sdpa&rdquo;) which is the simplest and most robust.</p><h3 id=lightning-module>Lightning Module</h3><p>PyTorch Lightning abstracts away much of the boilerplate involved in training loops. Here’s how you can wrap our Llama model into a LightningModule:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>### ./prollama/model.py</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>ProLlama</span><span class=p>(</span><span class=n>pl</span><span class=o>.</span><span class=n>LightningModule</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>cfg</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>cfg</span> <span class=o>=</span> <span class=n>cfg</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>instantiate_datamodule</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>instantiate_model</span><span class=p>(</span><span class=n>cfg</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>save_hyperparameters</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>instantiate_datamodule</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># instantiate the DataModule</span>
+</span></span><span class=line><span class=cl>        <span class=o>...</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>instantiate_model</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>cfg</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># instantiate the Llama model</span>
+</span></span><span class=line><span class=cl>        <span class=o>...</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>training_step</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>batch</span><span class=p>,</span> <span class=n>batch_idx</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># your training step, which can calculate the loss and log it</span>
+</span></span><span class=line><span class=cl>        <span class=o>...</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>validation_step</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>batch</span><span class=p>,</span> <span class=n>batch_idx</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># your validation step, which can calculate the val loss and other val metrics</span>
+</span></span><span class=line><span class=cl>        <span class=c1># you can also calculate epoch-level metrics if you need all the predictions</span>
+</span></span><span class=line><span class=cl>        <span class=o>...</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>configure_optimizers</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># your optimizer</span>
+</span></span><span class=line><span class=cl>        <span class=o>...</span>
+</span></span></code></pre></div><p>For validation and test metrics, you can also implement <code>on_validation_epoch_end()</code> if you need all the predictions (see <a href=https://lightning.ai/docs/pytorch/stable/common/lightning_module.html#validation-epoch-level-metrics>here</a>).</p><p>As the Llama model from Hugging Face has already implemented the <code>forward</code> method and even the loss computation, we can simply call the model to compute the loss:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>training_step</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>batch</span><span class=p>,</span> <span class=n>batch_idx</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># self.model was defined as a transformers.LlamaForCausalLM object</span>
+</span></span><span class=line><span class=cl>    <span class=n>loss</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>model</span><span class=p>(</span><span class=n>input_ids</span><span class=o>=</span><span class=n>batch</span><span class=p>,</span> <span class=n>labels</span><span class=o>=</span><span class=n>batch</span><span class=p>)</span><span class=o>.</span><span class=n>loss</span>
+</span></span><span class=line><span class=cl>    <span class=c1># sync_dist is useful for multi-GPU training like DDP</span>
+</span></span><span class=line><span class=cl>    <span class=bp>self</span><span class=o>.</span><span class=n>log</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;train/loss&#34;</span><span class=p>,</span> <span class=n>loss</span><span class=p>,</span> <span class=n>on_step</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span> <span class=n>on_epoch</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>sync_dist</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>loss</span>
+</span></span></code></pre></div><h2 id=configuration-with-hydra>Configuration with Hydra</h2><p>Hydra manages our experiment configurations through YAML files. It&rsquo;s a cleaner and more powerful option compared to Python&rsquo;s built-in <a href=https://docs.python.org/3/library/argparse.html>argparse</a>. Here&rsquo;s a sample configuration (e.g., in <code>train.yaml</code>):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c>### ./config/train.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># @package _global_</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>defaults</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>_self_</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>datamodule</span><span class=p>:</span><span class=w> </span><span class=l>swissprot</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>mode</span><span class=p>:</span><span class=w> </span><span class=l>default</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>train</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>optimizer</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>_target_</span><span class=p>:</span><span class=w> </span><span class=l>torch.optim.AdamW</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>lr</span><span class=p>:</span><span class=w> </span><span class=m>0.001</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>lr_scheduler</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>_target_</span><span class=p>:</span><span class=w> </span><span class=l>transformers.get_cosine_schedule_with_warmup</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>num_warmup_steps</span><span class=p>:</span><span class=w> </span><span class=l>${eval:0.01 * ${trainer.max_steps}}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>num_training_steps</span><span class=p>:</span><span class=w> </span><span class=l>${trainer.max_steps}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>trainer</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=l>...</span><span class=w>
+</span></span></span></code></pre></div><p>Then in your main script for training (let&rsquo;s say <code>train.py</code>) , you can load the above configurations into a Python object:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>### ./train.py</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>hydra</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>omegaconf</span> <span class=kn>import</span> <span class=n>OmegaConf</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@hydra.main</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>version_base</span><span class=o>=</span><span class=s2>&#34;1.3&#34;</span><span class=p>,</span> <span class=n>config_path</span><span class=o>=</span><span class=s2>&#34;./config&#34;</span><span class=p>,</span> <span class=n>config_name</span><span class=o>=</span><span class=s2>&#34;train&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>(</span><span class=n>cfg</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Configs:</span><span class=se>\n</span><span class=si>{</span><span class=n>OmegaConf</span><span class=o>.</span><span class=n>to_yaml</span><span class=p>(</span><span class=n>cfg</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Train optimizer configs:</span><span class=se>\n</span><span class=si>{</span><span class=n>OmegaConf</span><span class=o>.</span><span class=n>to_yaml</span><span class=p>(</span><span class=n>cfg</span><span class=o>.</span><span class=n>train</span><span class=o>.</span><span class=n>optimizer</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>Like <a href=https://docs.python.org/3/library/argparse.html>argparse</a>, you can get all information about your configurations through <code>python train.py --help</code>.</p><p>In the above example, we use some key Hydra features that I will detail in the following:</p><ul><li>Group parameters for different components</li><li>Object instantiation through <code>_target_</code></li><li>Custom resolvers for dynamic configuration</li></ul><h4 id=group-parameters>Group parameters</h4><p>Hydra allows you to handle group parameters. For instance, in our above setting, we used the <code>swissprot</code> datamodule and the corresponding file in <code>./config/datamodule/swissprot.yaml</code> contains the specific parameters for the SwissProt dataset:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c>### ./config/datamodule/swissprot.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>_target_</span><span class=p>:</span><span class=w> </span><span class=l>prollama.data.ProteinDataset</span><span class=w> </span><span class=c># this is the class that you want to use to instantiate your object</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>root</span><span class=p>:</span><span class=w> </span><span class=l>./datasets/SwissProt</span><span class=w> </span><span class=c># parameter for this class</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>dataset_name</span><span class=p>:</span><span class=w> </span><span class=l>swissprot</span><span class=w> </span><span class=c># another parameter for this class</span><span class=w>
+</span></span></span></code></pre></div><h4 id=object-instantiation>Object instantiation</h4><p>The class name provided in the <code>_target_</code> allows you to instantiate objects from that class using <code>hydra.utils.instantiate()</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># this will create an object of prollama.data.ProteinDataset </span>
+</span></span><span class=line><span class=cl><span class=c1># with the root and dataset_name provided in the above yaml file</span>
+</span></span><span class=line><span class=cl><span class=n>datamodule</span> <span class=o>=</span> <span class=n>hydra</span><span class=o>.</span><span class=n>utils</span><span class=o>.</span><span class=n>instantiate</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>cfg</span><span class=o>.</span><span class=n>datamodule</span><span class=p>)</span>
+</span></span></code></pre></div><p>More details can be found <a href=https://hydra.cc/docs/advanced/instantiate_objects/overview/>here</a>. Moreover, <code>hydra.utils.call()</code> allows you to call functions defined through <code>_target_</code>, as showcased in the <code>train.lr_scheduler</code> above.</p><h4 id=custom-resolver-for-dynamic-configuration>Custom resolver for dynamic configuration</h4><p>As Hydra relies on OmegaConf, which allows for registering <a href=https://omegaconf.readthedocs.io/en/2.1_branch/custom_resolvers.html>custom resolver</a>, you can define custom resolvers that parse the YAML file in a way that you expect. For instance, in the above example, we want the number of warmup steps to be always the 1% of the total training steps:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c>### ./config/train.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>trainer</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>max_steps</span><span class=p>:</span><span class=w> </span><span class=m>100000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>train</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>lr_scheduler</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>_target_</span><span class=p>:</span><span class=w> </span><span class=l>transformers.get_cosine_schedule_with_warmup</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>num_warmup_steps</span><span class=p>:</span><span class=w> </span><span class=l>${eval:${trainer.max_steps}</span><span class=w> </span><span class=c>// 100}</span><span class=w>
+</span></span></span></code></pre></div><p>But the original resolver does not permit math calculation. Thus, we use the <code>eval</code> tag to tell our resolver that there&rsquo;s a math calculation in the given text. Then, in our Python code, we can define the following resolver, which will apply the <code>eval</code> function to <a href=https://docs.python.org/3/library/functions.html#eval>evaluate any string as Python code</a>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>### ./train.py</span>
+</span></span><span class=line><span class=cl><span class=n>OmegaConf</span><span class=o>.</span><span class=n>register_new_resolver</span><span class=p>(</span><span class=s1>&#39;eval&#39;</span><span class=p>,</span> <span class=nb>eval</span><span class=p>)</span>
+</span></span></code></pre></div><p>Now if you print the <code>cfg</code> in <code>train.py</code> via <em>e.g.</em> <code>print(OmegaConf.to_container(cfg, resolve=True))</code>, you will obtain:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>trainer:
+</span></span><span class=line><span class=cl>  max_steps: <span class=m>100000</span>
+</span></span><span class=line><span class=cl>train:
+</span></span><span class=line><span class=cl>  lr_scheduler:
+</span></span><span class=line><span class=cl>    _target_: transformers.get_cosine_schedule_with_warmup
+</span></span><span class=line><span class=cl>    num_warmup_steps: <span class=m>1000</span>
+</span></span></code></pre></div><p>Of course, there are a lot more functionalities of Hydra useful for machine learning projects. I will leave further exploration to you.</p><h2 id=training-with-pytorch-lightning>Training with Pytorch Lightning</h2><p>Now that we have set up our data, model, and configuration, it&rsquo;s time to train our network. Using the PyTorch Lightning Trainer, you can easily kick off training with a few lines of code:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>### ./train.py</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>prollama.model</span> <span class=kn>import</span> <span class=n>ProLlama</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Instantiate the model and datamodule</span>
+</span></span><span class=line><span class=cl><span class=n>model</span> <span class=o>=</span> <span class=n>ProLlama</span><span class=p>(</span><span class=n>cfg</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>datamodule</span> <span class=o>=</span> <span class=n>model</span><span class=o>.</span><span class=n>_datamodule</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Instantiate the trainer</span>
+</span></span><span class=line><span class=cl><span class=n>trainer</span> <span class=o>=</span> <span class=n>hydra</span><span class=o>.</span><span class=n>utils</span><span class=o>.</span><span class=n>instantiate</span><span class=p>(</span><span class=n>cfg</span><span class=o>.</span><span class=n>trainer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># Train the model</span>
+</span></span><span class=line><span class=cl><span class=n>trainer</span><span class=o>.</span><span class=n>fit</span><span class=p>(</span><span class=n>model</span><span class=p>,</span> <span class=n>datamodule</span><span class=p>)</span>
+</span></span></code></pre></div><p>PyTorch Lightning handles the boilerplate, letting you focus on model development while automatically logging progress, validation loss, and other key metrics. You can add your favorite loggers during training, as well save the best checkpoints:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>### ./train.py</span>
+</span></span><span class=line><span class=cl><span class=n>loggers</span> <span class=o>=</span> <span class=p>[</span><span class=n>pl</span><span class=o>.</span><span class=n>loggers</span><span class=o>.</span><span class=n>WandbLogger</span><span class=p>(</span><span class=n>project</span><span class=o>=</span><span class=s2>&#34;ProLlama&#34;</span><span class=p>)]</span> <span class=c1># we use the wandb logger</span>
+</span></span><span class=line><span class=cl><span class=n>callbacks</span> <span class=o>=</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=n>pl</span><span class=o>.</span><span class=n>callbacks</span><span class=o>.</span><span class=n>ModelCheckpoint</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>monitor</span><span class=o>=</span><span class=s1>&#39;val/loss&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>dirpath</span><span class=o>=</span><span class=n>cfg</span><span class=o>.</span><span class=n>logs</span><span class=o>.</span><span class=n>path</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>filename</span><span class=o>=</span><span class=n>cfg</span><span class=o>.</span><span class=n>model</span><span class=o>.</span><span class=n>model_name</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>mode</span><span class=o>=</span><span class=s1>&#39;min&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>)]</span>
+</span></span><span class=line><span class=cl><span class=c1># Instantiate the Trainer</span>
+</span></span><span class=line><span class=cl><span class=n>trainer</span> <span class=o>=</span> <span class=n>hydra</span><span class=o>.</span><span class=n>utils</span><span class=o>.</span><span class=n>instantiate</span><span class=p>(</span><span class=n>cfg</span><span class=o>.</span><span class=n>trainer</span><span class=p>,</span> <span class=n>logger</span><span class=o>=</span><span class=n>logger</span><span class=p>,</span> <span class=n>callbacks</span><span class=o>=</span><span class=n>callbacks</span><span class=p>)</span>
+</span></span></code></pre></div><h4 id=lets-run-the-training-script>Let&rsquo;s run the training script!</h4><p>Now we can run our training script with our default hyperparameters in <code>./config/train.yaml</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python train.py
+</span></span></code></pre></div><p>As a proof-of-concept, we will only train our model for 50000 iterations and we will use <a href=https://wandb.ai/>wandb</a> to log our metrics during traing. Hydra provides a simple way to override the configurations:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python train.py trainer.max_steps<span class=o>=</span><span class=m>50000</span> <span class=nv>wandb</span><span class=o>=</span><span class=nb>true</span>
+</span></span></code></pre></div><blockquote class="markdown-alert markdown-alert-tip"><p class=markdown-alert-title><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1.5c-2.363.0-4 1.69-4 3.75.0.984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75.0 01-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456.0 00-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863.0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751.0 01-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304.0-2.06-1.637-3.75-4-3.75zM5.75 12h4.5a.75.75.0 010 1.5h-4.5a.75.75.0 010-1.5zM6 15.25a.75.75.0 01.75-.75h2.5a.75.75.0 010 1.5h-2.5A.75.75.0 016 15.25z"/></svg>Tip</p><p>Lightning also offers simple APIs to manage training configurations, such as multi-GPU training, gradient accumulating, etc. We have properly set up all <a href=https://github.com/claying/ProLlama/blob/main/config/train.yaml>these hyperparameters</a> in <code>./config/train.yaml</code> to ensure a stable and fast training on a NVIDIA H100 GPU.</p></blockquote><blockquote class="markdown-alert markdown-alert-note"><p class=markdown-alert-title><svg width="16" height="16" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1116 0A8 8 0 010 8zm8-6.5a6.5 6.5.0 100 13 6.5 6.5.0 000-13zM6.5 7.75A.75.75.0 017.25 7h1a.75.75.0 01.75.75v2.75h.25a.75.75.0 010 1.5h-2a.75.75.0 010-1.5h.25v-2h-.25a.75.75.0 01-.75-.75zM8 6a1 1 0 110-2 1 1 0 010 2z"/></svg>Note</p><p>My <a href=https://github.com/claying/ProLlama/blob/main/config/train.yaml>configuration</a> supports multi-GPU training automatically as I have set <code>trainer.devices=auto</code>. See its <a href=https://lightning.ai/docs/pytorch/stable/common/trainer.html#trainer-class-api>doc</a> for more details.</p></blockquote><p>Here are my training and validation losses:</p><img src=../images/prollama_train.png alt="ProLlama train loss" width=380>
+<img src=../images/prollama_val.png alt="ProLlama val loss" width=380><p>Everything looks good except a little bit overfitting at later stages, which is fine thanks to the checkpointing.</p><h2 id=generating-protein-sequences>Generating protein sequences</h2><p>Once your model is trained, you can use it to generate new protein sequences. The <code>generate.py</code> script leverages the trained Llama model to perform next amino acid prediction. Thanks to Hugging Face, we don&rsquo;t need to implement ourselves the generation code. With HF&rsquo;s <code>generate</code> <a href=https://huggingface.co/docs/transformers/en/main_classes/text_generation>method</a>, we can flexibly switch between different sampling strategies, such as multinomial sampling or beam search decoding. We can also adopt the top-k and top-p sampling with the multinomial sampling, which is commonly used in LLMs. Below we provide an example of how to call this function within our LightningModule:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>### ./prollama/model.py</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>ProLlama</span><span class=p>(</span><span class=n>pl</span><span class=o>.</span><span class=n>LightningModule</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nd>@torch.inference_mode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>generate</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>num_samples</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># we prefill the input_ids with the start token index (which is called cls_idx in ESM)</span>
+</span></span><span class=line><span class=cl>        <span class=n>input_ids</span> <span class=o>=</span> <span class=n>torch</span><span class=o>.</span><span class=n>full</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=p>(</span><span class=n>num_samples</span><span class=p>,</span> <span class=mi>1</span><span class=p>),</span> <span class=bp>self</span><span class=o>.</span><span class=n>alphabet</span><span class=o>.</span><span class=n>cls_idx</span><span class=p>,</span> <span class=n>dtype</span><span class=o>=</span><span class=n>torch</span><span class=o>.</span><span class=n>long</span><span class=p>,</span> <span class=n>device</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>device</span>
+</span></span><span class=line><span class=cl>        <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=c1># self.model is a transformers.LlamaForCausalLM object</span>
+</span></span><span class=line><span class=cl>        <span class=n>toks</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>model</span><span class=o>.</span><span class=n>generate</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>input_ids</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=n>do_sample</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=n>top_k</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>cfg</span><span class=o>.</span><span class=n>sampling</span><span class=o>.</span><span class=n>top_k</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=n>temperature</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>cfg</span><span class=o>.</span><span class=n>sampling</span><span class=o>.</span><span class=n>temperature</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=n>max_length</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>cfg</span><span class=o>.</span><span class=n>sampling</span><span class=o>.</span><span class=n>max_length</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>seq_list</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>num_samples</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=c1># we remove the start, end, and padding indices</span>
+</span></span><span class=line><span class=cl>            <span class=n>tok_seq</span> <span class=o>=</span> <span class=n>toks</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=mi>1</span><span class=p>:]</span>
+</span></span><span class=line><span class=cl>            <span class=n>tok_seq</span> <span class=o>=</span> <span class=n>tok_seq</span><span class=p>[(</span><span class=n>tok_seq</span> <span class=o>!=</span> <span class=bp>self</span><span class=o>.</span><span class=n>alphabet</span><span class=o>.</span><span class=n>eos_idx</span><span class=p>)</span> <span class=o>&amp;</span> <span class=p>(</span><span class=n>tok_seq</span> <span class=o>!=</span> <span class=bp>self</span><span class=o>.</span><span class=n>alphabet</span><span class=o>.</span><span class=n>padding_idx</span><span class=p>)]</span>
+</span></span><span class=line><span class=cl>            <span class=c1># we use the alphabet from ESM-2 to decode the indices to the amino acids</span>
+</span></span><span class=line><span class=cl>            <span class=n>seq</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span><span class=o>.</span><span class=n>join</span><span class=p>([</span><span class=bp>self</span><span class=o>.</span><span class=n>alphabet</span><span class=o>.</span><span class=n>get_tok</span><span class=p>(</span><span class=n>tok</span><span class=o>.</span><span class=n>item</span><span class=p>())</span> <span class=k>for</span> <span class=n>tok</span> <span class=ow>in</span> <span class=n>tok_seq</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=n>seq_list</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>seq</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>seq_list</span>
+</span></span></code></pre></div><p>You can run the following code to generate some samples:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python generate.py model.pretrained_path<span class=o>=</span><span class=si>${</span><span class=nv>path_to_your_pretrained_model</span><span class=si>}</span> sampling.num_samples<span class=o>=</span><span class=m>5</span>
+</span></span></code></pre></div><p>this will give you:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Generated samples:
+</span></span><span class=line><span class=cl>Protein 1: MKSKLKLHGFNNLTKTLSFNIYDICYAETPEDLQAYVQYIDEEYDADGNLIVFSIDITLPERNGTYIAKQPGQDHLLSVYHLTPENNQRDNSPLGTGTVLQIPLV
+</span></span><span class=line><span class=cl>Protein 2: MTSLISLAGTVLPLLLALCAAVTTALDAEALPVTEGPPLETLSERVRLQLLVALQPARVEELTRDEIDAILLEAVGRGAATVPAVALRLGARLLLAARLSQAGLRGRVEELEADLDAAARQLLARRVLGDGEALSRLREADDPARARGRLLDPEPGGEVTFDGSGDGRDGRAGVPSVARERAALRGLPDALDSLLERRVDDAVRDAAGATVAAGTRRRAVAAAGPAGERPGRRRVSPAGPAVVDRGLPARRALEVSAPAARAGPDTLVPEEEPLTVAADGSAAGALRRRERADAVVGAAGERLDARDVVGVTPGGGAAAAAAVGVGAADDDDPAPRRALRDLAGRRSRLSSSLAVPDPASLLATLRVELTRASSSEDVETGIPGVPRPSRSTLSRLPTSSAGLVGVRARPRLLAPRRVLLDVDEAAPRTARASGAPDVRTVATDAPTGRPGGPDSVATLGGGTGPLLGAPEAAETGSAARDAARRLRVVVLGTADLRLVTDRVGSVEVEGAA
+</span></span><span class=line><span class=cl>Protein 3: MSDRLAPVEVARAATAPAPRGVREVRRRPGRETVDGLDGGEEAEGGAEAELPEEEEGEDDTRSELQQELAVLEKKFGQPRLRKQLLSLVDQGSRKLSDAKQLLRERLQKEMEEQKGKLLEEKLKSREEKQGINAKVEDVNLLKRHVEDLRQELEEERQKQQEALQAARKRPLRRSQGGSRQDDLPAGVKAGGTTEAAEKAEKEADKRKAERGAKAEEDERRLRKEAKKVRRAEEKRRQAEEEKLKRQEEDRKRSELERRERDRQQQQLAQRKSKEKKKSAGEEQEKLEKVRKLQKDRDRVLSLEKEKKLLMEKKKQRAAAVSDAVASERARRKSKRDEDSAGAPADVSSKSPAETRGEGESEPAVSKTEVVNKPERVQASRKKEEPKRDADKAEKKEKKPPEGELEKVREEEARRPRRRQRKKKRGKAAPTPSASPVERAERRPASERRPSRGGVRRPGRRRGSAQSAVEKDVKDGKKKSSRSDRKDKKSAKGRPEVDDKEKARKKDDKLIE
+</span></span><span class=line><span class=cl>Protein 4: MTSAVSGLLRQIALSVLLCQIPTSSFLRGGAVLGGESLSSPLAFLSSGRAVDALGSPTLRVTVPELSAGTVGPTTTSVLTAARASSSSGVSPLQPRVPTLSEERTSAADRGGGRLRELLARQLPSLAPAEGSAELVQTAGSQASARGLAALGAGPEAATAQAQPLPASALAQSRSLVGSEAETRAVLLRASATSVRSQLEPRRSLTVTPDASGPASSTSTPSQAASSAAAGSQVELPLGRESEVGAAGSPASAEPVAGGLVAAAERREAELLLEAVATGTSARLTAARSLSASEDGASSSSLAREPRAASGRGALLRVLSLADPGPSGAPSSPGALALGVGTAPGGSRGGRGPRLRAEGPRGPDVPGGERESDPSVPALGAARRELRAGAAEVADSDPGGSRGGGGLVRSGGSASASLPGGPGGQPRGLPPQPPPPGAVTGVLPTGGTASAGGLTVSTPLAGSSLRVLPVAGGGSTLQGTAVTPQVVAPAAVTPPAPVTPVSATGTTTTPSS
+</span></span><span class=line><span class=cl>Protein 5: MTNNLATLRLARGSAALQTGQPIAVVEGGGLRRLSSSVKIVDSGEVVEVGRGTGGFLGALDLKEQTVRAEFSLFSQQPRHKVKLELKPPSQIKYIPGQEIKEAELLAARYERNEESFPLRVTSFHGILDVVDYSKGLDKGKTVMVMGVEKAVEVRIAKKLIDRYGIDVAVEITAKSFGKKSLDLLLAVQGGDFALADHVTDIDGAVSAMPKVTPKFERERVNPLLVEKIKTTKDKVVVVETENDWIDVDKQVVAALKAQGLRDVLVASAEVVAAESKVKPGETAKVIENVEKDKAEVEKPKEKKKDA
+</span></span></code></pre></div><h2 id=conclusion>Conclusion</h2><p>That&rsquo;s it! This tutorial demonstrated how to:</p><ul><li>Use Lightning and Hydra to streamline deep learning experiments</li><li>Train a Llama model for protein sequence generation</li><li>Leverage Hugging Face components for state-of-the-art architectures</li></ul><p>The combination of these tools allows for clean, maintainable code while reducing boilerplate and improving experiment management.</p><p>Ready to start experimenting? Check out the <a href=https://github.com/claying/ProLlama>full implementation</a> on GitHub.</p><nav class=post-nav><span></span>
+<span></span></nav></article><div class=comments><script src=https://giscus.app/client.js data-repo=claying/claying.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkxNjkwNzI2ODY=" data-category=Comments data-category-id=DIC_kwDOChPYLs4CnP2O data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=en data-loading=lazy crossorigin=anonymous async></script></div><footer><p class=copyright>© Dexiong Chen 2019–2026</p></footer></main><script async src="https://www.googletagmanager.com/gtag/js?id=G-096L0VPDR9"></script><script>var doNotTrack=!1,dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-096L0VPDR9")}</script></body></html>
